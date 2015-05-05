@@ -24,6 +24,9 @@
 		3AA396CF1AF8E928002FAE2D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA396CE1AF8E928002FAE2D /* Room.swift */; };
 		3AA396D01AF8EA43002FAE2D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA396CE1AF8E928002FAE2D /* Room.swift */; };
 		3AA396D51AF8ED48002FAE2D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA396D41AF8ED48002FAE2D /* LoginViewController.swift */; };
+		3AA396DB1AF92385002FAE2D /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA396DA1AF92385002FAE2D /* GroupViewController.swift */; };
+		3AA396DD1AF923C4002FAE2D /* UIViewControllerTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA396DC1AF923C4002FAE2D /* UIViewControllerTransitions.swift */; };
+		3AA396DF1AF92E43002FAE2D /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA396DE1AF92E43002FAE2D /* RoomViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		3AA396CB1AF8D807002FAE2D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3AA396CE1AF8E928002FAE2D /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		3AA396D41AF8ED48002FAE2D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3AA396DA1AF92385002FAE2D /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		3AA396DC1AF923C4002FAE2D /* UIViewControllerTransitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerTransitions.swift; sourceTree = "<group>"; };
+		3AA396DE1AF92E43002FAE2D /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +169,9 @@
 			isa = PBXGroup;
 			children = (
 				3AA396D41AF8ED48002FAE2D /* LoginViewController.swift */,
+				3AA396DA1AF92385002FAE2D /* GroupViewController.swift */,
+				3AA396DE1AF92E43002FAE2D /* RoomViewController.swift */,
+				3AA396DC1AF923C4002FAE2D /* UIViewControllerTransitions.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -267,12 +276,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA396DB1AF92385002FAE2D /* GroupViewController.swift in Sources */,
 				3AA396D51AF8ED48002FAE2D /* LoginViewController.swift in Sources */,
 				3AA396C31AF8BEF9002FAE2D /* ServiceConvenience.swift in Sources */,
+				3AA396DF1AF92E43002FAE2D /* RoomViewController.swift in Sources */,
 				3AA396CF1AF8E928002FAE2D /* Room.swift in Sources */,
 				3AA396CC1AF8D807002FAE2D /* User.swift in Sources */,
 				3AA3969E1AF8B7AD002FAE2D /* AppDelegate.swift in Sources */,
 				3AA396BF1AF8B8AA002FAE2D /* Service.swift in Sources */,
+				3AA396DD1AF923C4002FAE2D /* UIViewControllerTransitions.swift in Sources */,
 				3AA396C11AF8B8E4002FAE2D /* ServiceConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

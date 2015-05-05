@@ -68,7 +68,7 @@ class ServiceTests: XCTestCase {
                 if let user = user {
                     print(user)
                     
-                    Service.sharedInstance().createRoom(user) { (room, error) -> Void in
+                    Service.sharedInstance().createRoom(user, roomName: "TestRoom") { (room, error) -> Void in
                         if let error = error {
                             XCTAssert(room == nil, "failure")
                         } else {

@@ -37,14 +37,19 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Na9-Gg-VvC">
-                                <rect key="frame" x="16" y="72" width="568" height="45"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Na9-Gg-VvC">
+                                <rect key="frame" x="16" y="74" width="568" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Na9-Gg-VvC" secondAttribute="height" multiplier="568:21" constant="-649.14285714285711" id="fmD-c1-fbk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fmD-c1-fbk"/>
+                                    </mask>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -55,6 +60,8 @@
                             <constraint firstAttribute="centerX" secondItem="NBh-tR-5dF" secondAttribute="centerX" id="E7l-n2-UOo"/>
                             <constraint firstItem="wXg-Yb-n2Q" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="QtT-qE-1hg"/>
                             <constraint firstItem="NBh-tR-5dF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="UMQ-en-tny"/>
+                            <constraint firstItem="Na9-Gg-VvC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="YgR-n1-BxT"/>
+                            <constraint firstItem="Na9-Gg-VvC" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="eX2-SI-ihY"/>
                             <constraint firstItem="NBh-tR-5dF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jy7-AY-kmo"/>
                             <constraint firstItem="wXg-Yb-n2Q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kXi-UD-9Ri"/>
                             <constraint firstAttribute="centerX" secondItem="Na9-Gg-VvC" secondAttribute="centerX" id="mAB-ua-ul2"/>
@@ -73,10 +80,10 @@
             </objects>
             <point key="canvasLocation" x="513" y="222"/>
         </scene>
-        <!--View Controller-->
+        <!--Group View Controller-->
         <scene sceneID="Ubk-42-pXZ">
             <objects>
-                <viewController id="9d0-da-YaO" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GroupViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9d0-da-YaO" customClass="GroupViewController" customModule="DANetworking" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iVh-eM-ejb"/>
                         <viewControllerLayoutGuide type="bottom" id="ZHA-be-tEr"/>
@@ -84,12 +91,131 @@
                     <view key="view" contentMode="scaleToFill" id="m50-ca-NPR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hI4-JN-b2n">
+                                <rect key="frame" x="16" y="550" width="104" height="30"/>
+                                <state key="normal" title="Create a Room">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createGroupButtonPressed:" destination="9d0-da-YaO" eventType="touchUpInside" id="eoz-g1-oB6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axB-ar-WbV">
+                                <rect key="frame" x="506" y="550" width="78" height="30"/>
+                                <state key="normal" title="Go to room">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToRoomButtonPressed:" destination="9d0-da-YaO" eventType="touchUpInside" id="7Aa-Sb-sil"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not connected to a room yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5iQ-kt-Udc">
+                                <rect key="frame" x="16" y="30" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rxX-J3-qRK">
+                                <rect key="frame" x="16" y="500" width="153" height="30"/>
+                                <state key="normal" title="Join an existing Room">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZHA-be-tEr" firstAttribute="top" secondItem="hI4-JN-b2n" secondAttribute="bottom" constant="20" id="0VP-jD-vwh"/>
+                            <constraint firstItem="hI4-JN-b2n" firstAttribute="leading" secondItem="m50-ca-NPR" secondAttribute="leadingMargin" id="0wf-yj-cMc"/>
+                            <constraint firstItem="5iQ-kt-Udc" firstAttribute="top" secondItem="iVh-eM-ejb" secondAttribute="bottom" constant="10" id="Cs3-S6-5Sn"/>
+                            <constraint firstAttribute="centerX" secondItem="5iQ-kt-Udc" secondAttribute="centerX" id="MIR-Rk-Gqv"/>
+                            <constraint firstItem="ZHA-be-tEr" firstAttribute="top" secondItem="axB-ar-WbV" secondAttribute="bottom" constant="20" id="NjG-0P-nX7"/>
+                            <constraint firstItem="5iQ-kt-Udc" firstAttribute="leading" secondItem="m50-ca-NPR" secondAttribute="leadingMargin" id="URj-gR-Nae"/>
+                            <constraint firstItem="rxX-J3-qRK" firstAttribute="leading" secondItem="m50-ca-NPR" secondAttribute="leadingMargin" id="Wws-9K-NAu"/>
+                            <constraint firstItem="hI4-JN-b2n" firstAttribute="top" secondItem="rxX-J3-qRK" secondAttribute="bottom" constant="20" id="mPz-uJ-nxA"/>
+                            <constraint firstItem="axB-ar-WbV" firstAttribute="trailing" secondItem="m50-ca-NPR" secondAttribute="trailingMargin" id="rht-Qp-aTe"/>
+                            <constraint firstItem="5iQ-kt-Udc" firstAttribute="trailing" secondItem="m50-ca-NPR" secondAttribute="trailingMargin" id="wp9-QN-e8C"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="createGroupButton" destination="hI4-JN-b2n" id="Xtx-ez-4Oh"/>
+                        <outlet property="goToRoomButton" destination="axB-ar-WbV" id="YYd-th-kVt"/>
+                        <outlet property="statusLabel" destination="5iQ-kt-Udc" id="zSj-4W-Vqe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Jl-8x-NlO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1167" y="222"/>
+        </scene>
+        <!--Room View Controller-->
+        <scene sceneID="35c-fU-OhB">
+            <objects>
+                <viewController storyboardIdentifier="RoomViewController" id="CLt-3V-acP" customClass="RoomViewController" customModule="DANetworking" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QPQ-4Q-H51"/>
+                        <viewControllerLayoutGuide type="bottom" id="J1e-Ii-mdN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1lh-UG-asn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Room Info" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zHZ-r7-heM">
+                                <rect key="frame" x="16" y="28" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGm-xL-LYy">
+                                <rect key="frame" x="16" y="469" width="63" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0l4-GC-n6W">
+                                <rect key="frame" x="16" y="510" width="88" height="30"/>
+                                <state key="normal" title="Invite friends">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="inviteFriendsButtonPressed:" destination="CLt-3V-acP" eventType="touchUpInside" id="QO0-LK-XWv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI5-ML-oKw">
+                                <rect key="frame" x="16" y="550" width="218" height="30"/>
+                                <state key="normal" title="Send sample message to group">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendSampleMessageButtonPressed:" destination="CLt-3V-acP" eventType="touchUpInside" id="Sc3-9q-Me4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zHZ-r7-heM" firstAttribute="top" secondItem="QPQ-4Q-H51" secondAttribute="bottom" constant="8" id="1Yt-gM-hEg"/>
+                            <constraint firstItem="0l4-GC-n6W" firstAttribute="leading" secondItem="1lh-UG-asn" secondAttribute="leadingMargin" id="9DY-N5-OfQ"/>
+                            <constraint firstItem="J1e-Ii-mdN" firstAttribute="top" secondItem="bI5-ML-oKw" secondAttribute="bottom" constant="20" id="AEd-sh-rG8"/>
+                            <constraint firstItem="zHZ-r7-heM" firstAttribute="trailing" secondItem="1lh-UG-asn" secondAttribute="trailingMargin" id="Ecw-2d-UDs"/>
+                            <constraint firstItem="bI5-ML-oKw" firstAttribute="leading" secondItem="1lh-UG-asn" secondAttribute="leadingMargin" id="LxQ-2X-svx"/>
+                            <constraint firstItem="0l4-GC-n6W" firstAttribute="top" secondItem="EGm-xL-LYy" secondAttribute="bottom" constant="20" id="NHk-7p-olk"/>
+                            <constraint firstItem="zHZ-r7-heM" firstAttribute="leading" secondItem="1lh-UG-asn" secondAttribute="leadingMargin" id="hD3-vU-qlY"/>
+                            <constraint firstItem="J1e-Ii-mdN" firstAttribute="top" secondItem="0l4-GC-n6W" secondAttribute="bottom" constant="20" id="oBd-9d-uGU"/>
+                            <constraint firstItem="bI5-ML-oKw" firstAttribute="top" secondItem="0l4-GC-n6W" secondAttribute="bottom" constant="10" id="vtr-Xi-oZ6"/>
+                            <constraint firstItem="EGm-xL-LYy" firstAttribute="leading" secondItem="1lh-UG-asn" secondAttribute="leadingMargin" id="zWZ-FJ-oTj"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="oBd-9d-uGU"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="statusLabel" destination="zHZ-r7-heM" id="uoC-u6-fAQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b8B-X7-qWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1797" y="222"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nuh-CT-5m7">

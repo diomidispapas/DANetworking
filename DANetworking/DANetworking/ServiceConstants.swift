@@ -26,23 +26,46 @@ extension Service {
         static let Register = "/_matrix/client/api/v1/register"
         static let Login = "/_matrix/client/api/v1/login"
         static let CreateRoom = "/_matrix/client/api/v1/createRoom"
+        static let SendMessage = "/_matrix/client/api/v1/rooms/{room_id}/send/m.room.message"
+        static let GettingLiveState = "/_matrix/client/api/v1/events"
 
     }
     
+    
     // MARK: - Methods
     struct ParameterKeys {
-        
+    
         static let AccessToken = "access_token"
+        static let UpdateParameter = "&from="
     }
-
+    
+    
+    // MARK: - URL Keys
+    struct URLKeys {
+        
+        static let RoomId = "room_id"
+        
+    }
+    
 
     // MARK: - JSON Body Keys
     struct JSONBodyKeys {
         
         static let User = "user"
         static let Password = "password"
-        static let RegisterType = "type"      
+        static let RegisterType = "type"
+        
+        // MARK: - Create Room Keys
+
+        static let RoomName = "room_alias_name"
+        
+        // MARK: - Message Send Keys
+
+        static let MessageType = "msgtype"
+        static let MessageBody = "body"
+
     }
+    
     
     // MARK: - JSON Response Keys
     struct JSONResponseKeys {

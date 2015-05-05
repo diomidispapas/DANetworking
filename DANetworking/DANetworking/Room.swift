@@ -13,7 +13,12 @@ class Room: NSObject {
     var roomId: String?
     
     init(dictionary: [String : AnyObject]) {
-        roomAlias = dictionary[Service.JSONResponseKeys.RoomAlias] as? String
+        var roomAlias = dictionary[Service.JSONResponseKeys.RoomAlias] as? String
+        if let roomAlias = roomAlias {
+            self.roomAlias = dictionary[Service.JSONResponseKeys.RoomAlias] as? String
+        } else {
+            self.roomAlias = "Unnamed Room"
+        }
         roomId = dictionary[Service.JSONResponseKeys.RoomId] as? String
         super.init()
     }

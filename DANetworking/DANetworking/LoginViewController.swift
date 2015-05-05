@@ -39,7 +39,6 @@ class LoginViewController: UIViewController {
     
     // MARK: - LoginViewController
     
-    
     func login() {
         let username = self.usernameTextField.text
         let password = self.passwordTextField.text
@@ -60,36 +59,14 @@ class LoginViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue(), {
             if let user = self.user {
                 self.statusLabel.text = "User \(user.userId!) logged in successfully"
-                self.createRoom(user)
+                
+                // Proceed to the next controller
+                self.proceedToGroupViewController(user: user)
             }
         })
     }
     
-    func createRoom(user: User) {
-        Service.sharedInstance().createRoom(user, completionHandler: { (room, error) -> Void in
-            if let error = error {
-                self.displayError("Error creating room")
-            }
-            if let room = room {
-                self.completeRoomCreation()
-            }
-        })
-    }
-    
-    func completeRoomCreation() {
-        dispatch_async(dispatch_get_main_queue(), {
-            if let user = self.user {
-                self.statusLabel.text = "Room created for \(user.userId!)"
-                self.createRoom(user)
-            }
-            
-            /*
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ManagerNavigationController") as! UINavigationController
-            self.presentViewController(controller, animated: true, completion: nil)
-            */
-        })
-    }
-    
+        
     func displayError(errorString: String?) {
         dispatch_async(dispatch_get_main_queue(), {
             if let errorString = errorString {

@@ -10,7 +10,7 @@ import Foundation
 
 extension Service {
     
-    // MARK: - POST Convenience Methods
+    // MARK: - Register
     
     func register(user: String, password: String, completionHandler: (user: User?, error: NSError?) -> Void) {
         
@@ -45,6 +45,8 @@ extension Service {
         }
     }
     
+    // MARK: - Login
+
     func login(user: String, password: String, completionHandler: (user: User?, error: NSError?) -> Void) {
         
         let parameters = ["":""]
@@ -78,13 +80,16 @@ extension Service {
         }
     }
     
-    func createRoom(user: User, completionHandler: (room: Room?, error: NSError?) -> Void) {
+    // MARK: - Create Room
+
+    func createRoom(user: User, roomName: String, completionHandler: (room: Room?, error: NSError?) -> Void) {
         let parameters = [Service.ParameterKeys.AccessToken:user.accessToken!]
         
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
-        //let parameters = [TMDBClient.ParameterKeys.SessionID : TMDBClient.sharedInstance().sessionID!]
         var mutableMethod : String = Methods.CreateRoom
+        //let jsonBody : [String:AnyObject] = [Service.JSONBodyKeys.RoomName:roomName]
         let jsonBody : [String:AnyObject] = ["":""]
+
         
         /* 2. Make the request */
         let task = taskForPOSTMethod(mutableMethod, parameters: parameters, jsonBody: jsonBody) { JSONResult, error in
@@ -105,8 +110,75 @@ extension Service {
                 */
             }
         }
-
     }
+    
+    // MARK: - Send Message
+    
+    func sendMessage(user: User, room: Room,  message: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
+        let parameters = [Service.ParameterKeys.AccessToken:user.accessToken!]
+
+        var mutableMethod : String = Methods.SendMessage
+        mutableMethod = Service.subtituteKeyInMethod(mutableMethod, key: Service.URLKeys.RoomId, value: String(room.roomId!))!
+
+        let jsonBody : [String:AnyObject] = [
+            Service.JSONBodyKeys.MessageType:"m.text",
+            Service.JSONBodyKeys.MessageBody:message
+        ]
+        
+        /* 2. Make the request */
+        let task = taskForPOSTMethod(mutableMethod, parameters: parameters, jsonBody: jsonBody) { JSONResult, error in
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandler(success: false, error: error)
+            } else {
+                print(JSONResult)
+                completionHandler(success: true, error: error)
+            }
+        }
+    }
+    
+    func getLiveState(user: User, completionHandler: (endParameter: String, error: NSError?) -> Void) {
+       
+        let parameters = [Service.ParameterKeys.AccessToken:user.accessToken!]
+        var mutableMethod : String = Methods.GettingLiveState
+
+        /* 2. Make the request */
+        let task = taskForGETMethod(mutableMethod, parameters: parameters) { JSONResult, error in
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandler(endParameter: "", error: error)
+            } else {
+                print(JSONResult)
+                let responseDictionary = JSONResult as! Dictionary<String, AnyObject>
+                completionHandler(endParameter: responseDictionary["end"], error: error)
+            }
+        }
+    }
+    
+    func updateState(user: User, from: String,  completionHandler: (success: Bool, error: NSError?) -> Void) {
+        
+        let parameters = [
+            Service.ParameterKeys.AccessToken:user.accessToken!,
+            Service.ParameterKeys.UpdateParameter:from
+        ]
+        var mutableMethod : String = Methods.GettingLiveState
+        
+        /* 2. Make the request */
+        let task = taskForGETMethod(mutableMethod, parameters: parameters) { JSONResult, error in
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandler(success: false, error: error)
+            } else {
+                print(JSONResult)
+                completionHandler(success: true, error: error)
+            }
+        }
+    }
+
+
 
 
 }
