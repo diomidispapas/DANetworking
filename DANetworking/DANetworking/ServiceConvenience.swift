@@ -87,8 +87,7 @@ extension Service {
         
         /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
         var mutableMethod : String = Methods.CreateRoom
-        //let jsonBody : [String:AnyObject] = [Service.JSONBodyKeys.RoomName:roomName]
-        let jsonBody : [String:AnyObject] = ["":""]
+        let jsonBody : [String:AnyObject] = [Service.JSONBodyKeys.RoomName:roomName]
 
         
         /* 2. Make the request */
@@ -138,6 +137,8 @@ extension Service {
         }
     }
     
+    // MARK: - Get live State
+ 
     func getLiveState(user: User, completionHandler: (endParameter: String, error: NSError?) -> Void) {
        
         let parameters = [Service.ParameterKeys.AccessToken:user.accessToken!]
@@ -152,7 +153,7 @@ extension Service {
             } else {
                 print(JSONResult)
                 let responseDictionary = JSONResult as! Dictionary<String, AnyObject>
-                completionHandler(endParameter: responseDictionary["end"], error: error)
+                completionHandler(endParameter: responseDictionary["end"] as! String, error: error)
             }
         }
     }
@@ -177,8 +178,4 @@ extension Service {
             }
         }
     }
-
-
-
-
 }

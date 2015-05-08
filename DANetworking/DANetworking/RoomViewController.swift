@@ -11,6 +11,7 @@ import UIKit
 class RoomViewController: UIViewController {
     var user: User? = nil
     var room: Room? = nil
+    var mxRoom: MXRoom? = nil
     
     
     @IBOutlet weak var statusLabel: UILabel!
@@ -22,6 +23,15 @@ class RoomViewController: UIViewController {
 
         self.statusLabel.text = "Welcome to \(room!.roomAlias!)"
         self.getLiveState()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        if let mxRoom = self.mxRoom {
+            mxRoom.removeAllListeners()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,6 +68,76 @@ class RoomViewController: UIViewController {
     }
     
     func getLiveState() {
+        MXService.sharedInstance().getMxSession(user!, roomId: self.room!.roomId!) {[unowned self] (mxSession, error) -> Void in
+            if let mxSession = mxSession {
+                /*
+                MXService.sharedInstance().getMessagesOfRoom(mxSession, roomId: self.room!.roomId!, completionHandler: { (endParameter, error) -> Void in
+                    
+                })
+                */
+                var room : MXRoom = MXRoom(roomId: self.room!.roomId!, andMatrixSession: mxSession)
+                
+                self.mxRoom = room
+                /*
+                var mxMembersEvents = [
+                kMXEventTypeStringRoomMember,
+                kMXEventTypeStringRoomPowerLevels,
+                kMXEventTypeStringPresence,
+                kMXEventTypeStringRoomMessage
+                ]
+                
+                self.mxRoom!.listenToEventsOfTypes(mxMembersEvents as [AnyObject], onEvent: { (event: MXEvent!, direction: MXEventDirection, roomState:MXRoomState!) -> Void in
+                    
+                    println("An event woke me up")
+                    println(event)
+                    room.handleLiveEvent(event)
+
+                    switch direction.value {
+                    case MXEventDirectionForwards.value:
+                        // Live/New events come here
+                        println(event)
+                    case MXEventDirectionBackwards.value:
+                        // Events that occured in the past will come here when requesting pagination.
+                        // roomState contains the state of the room just before this event occured.
+                        println(event)
+                    default:
+                        println(event)
+                        
+                    }
+                })
+                */
+                
+                room.listenToEvents { (event: MXEvent!, direction: MXEventDirection, roomState:MXRoomState!) -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
+
+                    println("An event woke me up")
+                    println(event)
+
+                    switch direction.value {
+                    case MXEventDirectionForwards.value:
+                        // Live/New events come here
+                        println(event)
+                    case MXEventDirectionBackwards.value:
+                        // Events that occured in the past will come here when requesting pagination.
+                        // roomState contains the state of the room just before this event occured.
+                        println(event)
+                    default:
+                        println(event)
+                        
+                    }
+                    })
+                }
+
+            }
+            
+            if let error = error {
+                self.displayError("Error getting Matrix Session")
+            }
+        }
+    }
+    
+    /*
+    func getLiveState() {
         Service.sharedInstance().getLiveState(user!, completionHandler: { (success, error) -> Void in
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
@@ -77,7 +157,7 @@ class RoomViewController: UIViewController {
             
         })
     }
-    
+    */
     // MARK: - Helpers
     
     func displayError(errorString: String?) {

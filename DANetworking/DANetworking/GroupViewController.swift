@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class GroupViewController: UIViewController {
     var user: User? = nil
     var room: Room? = nil
@@ -17,6 +18,8 @@ class GroupViewController: UIViewController {
     @IBOutlet weak var createGroupButton: UIButton!
     @IBOutlet weak var goToRoomButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var roomNameTextField: UITextField!
+    
     
     // MARK: - Lifecycle
     
@@ -44,10 +47,17 @@ class GroupViewController: UIViewController {
         self.proceedToRoomViewController(user: self.user!, room: self.room!)
     }
     
+    @IBAction func joinExistingRoomButtonPressed(sender: AnyObject) {
+        MXService.sharedInstance().getPublicRooms { (rooms, error) -> Void in
+            
+        }
+    }
+    
+    
     // MARK: - GroupViewController
 
     func createRoom(user: User) {
-        Service.sharedInstance().createRoom(user, roomName: "testRoom", completionHandler: { (room, error) -> Void in
+        Service.sharedInstance().createRoom(user, roomName: roomNameTextField!.text, completionHandler: { (room, error) -> Void in
             if let error = error {
                 self.displayError("Error creating room")
             }
