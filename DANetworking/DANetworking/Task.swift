@@ -8,11 +8,11 @@
 
 import UIKit
 
-class Task<T>: NSObject {
-    let requirement: Requirement<T>
+class Task: NSObject {
+    let requirement: Requirement
     let name: String
     
-    init(name: String, requirement: Requirement<T>) {
+    init(name: String, requirement: Requirement) {
         self.name = name
         self.requirement = requirement
         super.init()

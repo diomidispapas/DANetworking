@@ -38,7 +38,7 @@ class MXService: NSObject {
         
     }
     
-    func joinToRoom(#name: String) {
+    func joinToRoom(name: String) {
         
     }
     
@@ -53,7 +53,7 @@ class MXService: NSObject {
         mxSession.start({ () -> Void in
             mxSession.rooms()
             completionHandler(mxSession: mxSession,error: nil)
-            }, failure: { (error: NSError?) -> Void in
+            },failure: { (error: NSError?) -> Void in
             completionHandler(mxSession: nil,error: error)
         })
 

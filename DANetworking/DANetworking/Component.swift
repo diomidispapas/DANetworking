@@ -8,15 +8,16 @@
 
 import UIKit
 
-class Component<T>: NSObject, DecideProtocol {
+class Component: NSObject, DecideProtocol {
     var name: String
-    var power: T
-    var tasks: [Task<T>]
+    var power: Double
+    var tasks: [Task]
     
-    init(name: String, power: T) {
+    init(name: String, power: Double) {
         self.name = name
         self.power = power
-        self.tasks = [Task<T>]()
+        self.tasks = [Task]()
+        super.init()
     }
     
     

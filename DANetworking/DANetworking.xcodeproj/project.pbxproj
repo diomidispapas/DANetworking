@@ -12,6 +12,9 @@
 		3A402BB91AFB83640098D69D /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BB81AFB83640098D69D /* Task.swift */; };
 		3A402BBD1AFB86850098D69D /* DecideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BBC1AFB86850098D69D /* DecideViewController.swift */; };
 		3A402BBF1AFB95E90098D69D /* DecideProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */; };
+		3A476F8B1B03CDAE00F0FA4F /* Decide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A476F8A1B03CDAE00F0FA4F /* Decide.swift */; };
+		3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */; };
+		3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */; };
 		3AA3969E1AF8B7AD002FAE2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */; };
 		3AA396A31AF8B7AD002FAE2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AA396A11AF8B7AD002FAE2D /* Main.storyboard */; };
 		3AA396A51AF8B7AD002FAE2D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA396A41AF8B7AD002FAE2D /* Images.xcassets */; };
@@ -53,6 +56,9 @@
 		3A402BB81AFB83640098D69D /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		3A402BBC1AFB86850098D69D /* DecideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideViewController.swift; sourceTree = "<group>"; };
 		3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideProtocol.swift; sourceTree = "<group>"; };
+		3A476F8A1B03CDAE00F0FA4F /* Decide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decide.swift; sourceTree = "<group>"; };
+		3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubHelper.swift; sourceTree = "<group>"; };
+		3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubInitialViewController.swift; sourceTree = "<group>"; };
 		3AA396981AF8B7AD002FAE2D /* DANetworking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DANetworking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA3969C1AF8B7AD002FAE2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,18 +110,19 @@
 			children = (
 				3A402BC11AFB9C810098D69D /* Generic */,
 				3A402BC01AFB9C010098D69D /* Spesific Objects */,
+				3A476F8A1B03CDAE00F0FA4F /* Decide.swift */,
 			);
 			name = "Decide Sample";
 			sourceTree = "<group>";
 		};
-		3A402BBA1AFB865B0098D69D /* Networking Flow */ = {
+		3A402BBA1AFB865B0098D69D /* Networking Flow (Matrix) */ = {
 			isa = PBXGroup;
 			children = (
 				3AA396D41AF8ED48002FAE2D /* LoginViewController.swift */,
 				3AA396DA1AF92385002FAE2D /* GroupViewController.swift */,
 				3AA396DE1AF92E43002FAE2D /* RoomViewController.swift */,
 			);
-			name = "Networking Flow";
+			name = "Networking Flow (Matrix)";
 			sourceTree = "<group>";
 		};
 		3A402BBB1AFB866A0098D69D /* Decide Flow */ = {
@@ -142,6 +149,24 @@
 				3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */,
 			);
 			name = Generic;
+			sourceTree = "<group>";
+		};
+		3A8D13801B02667B000583C1 /* Matrix Service (NSURLSession) */ = {
+			isa = PBXGroup;
+			children = (
+				3AA396BE1AF8B8AA002FAE2D /* Service.swift */,
+				3AA396C01AF8B8E4002FAE2D /* ServiceConstants.swift */,
+				3AA396C21AF8BEF9002FAE2D /* ServiceConvenience.swift */,
+			);
+			name = "Matrix Service (NSURLSession)";
+			sourceTree = "<group>";
+		};
+		3A8D13811B026695000583C1 /* PubNub Flow */ = {
+			isa = PBXGroup;
+			children = (
+				3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */,
+			);
+			name = "PubNub Flow";
 			sourceTree = "<group>";
 		};
 		3AA3968F1AF8B7AD002FAE2D = {
@@ -218,10 +243,9 @@
 		3AA396C91AF8D7D5002FAE2D /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				3AD9FA5C1AFA945F002DCADC /* Matrix Service SDK */,
-				3AA396BE1AF8B8AA002FAE2D /* Service.swift */,
-				3AA396C01AF8B8E4002FAE2D /* ServiceConstants.swift */,
-				3AA396C21AF8BEF9002FAE2D /* ServiceConvenience.swift */,
+				3A8D13801B02667B000583C1 /* Matrix Service (NSURLSession) */,
+				3AD9FA5C1AFA945F002DCADC /* Matrix Service (Native SDK) */,
+				3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -238,19 +262,20 @@
 		3AA396D11AF8ED12002FAE2D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3A8D13811B026695000583C1 /* PubNub Flow */,
 				3A402BBB1AFB866A0098D69D /* Decide Flow */,
-				3A402BBA1AFB865B0098D69D /* Networking Flow */,
+				3A402BBA1AFB865B0098D69D /* Networking Flow (Matrix) */,
 				3AA396DC1AF923C4002FAE2D /* UIViewControllerTransitions.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		3AD9FA5C1AFA945F002DCADC /* Matrix Service SDK */ = {
+		3AD9FA5C1AFA945F002DCADC /* Matrix Service (Native SDK) */ = {
 			isa = PBXGroup;
 			children = (
 				3AD9FA5D1AFA9480002DCADC /* MXService.swift */,
 			);
-			name = "Matrix Service SDK";
+			name = "Matrix Service (Native SDK)";
 			sourceTree = "<group>";
 		};
 		710614B14A4756653AD3F11A /* Pods */ = {
@@ -440,11 +465,14 @@
 				3AD9FA5E1AFA9480002DCADC /* MXService.swift in Sources */,
 				3A402BB31AFB76910098D69D /* Requirement.swift in Sources */,
 				3A402BBD1AFB86850098D69D /* DecideViewController.swift in Sources */,
+				3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */,
 				3AA396DB1AF92385002FAE2D /* GroupViewController.swift in Sources */,
 				3AA396D51AF8ED48002FAE2D /* LoginViewController.swift in Sources */,
 				3AA396C31AF8BEF9002FAE2D /* ServiceConvenience.swift in Sources */,
 				3AA396DF1AF92E43002FAE2D /* RoomViewController.swift in Sources */,
 				3A402BB91AFB83640098D69D /* Task.swift in Sources */,
+				3A476F8B1B03CDAE00F0FA4F /* Decide.swift in Sources */,
+				3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */,
 				3A402BB51AFB83290098D69D /* Component.swift in Sources */,
 				3AA396CF1AF8E928002FAE2D /* Room.swift in Sources */,
 				3A402BBF1AFB95E90098D69D /* DecideProtocol.swift in Sources */,

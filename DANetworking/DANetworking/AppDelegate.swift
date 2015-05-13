@@ -9,13 +9,35 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PNDelegate {
 
     var window: UIWindow?
+    private var pubNub: PubNub?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Set up pubNub
+       
+        var configuration = PNConfiguration(forOrigin: PubNubHelper.Constancts.origin, publishKey: PubNubHelper.Constancts.publishKey, subscribeKey: PubNubHelper.Constancts.subscribeKey, secretKey: PubNubHelper.Constancts.secretKey)
+        
+        var channel :PNChannel = PNChannel()
+        
+        PubNub.setConfiguration(configuration)
+        PubNub.connect()
+        
+        /*
+        pubNub = PubNub.connectingClientWithConfiguration(PNConfiguration.defaultConfiguration(), delegate: self, andSuccessBlock: { (origin: String) -> Void in
+            
+            }, errorBlock: { (error: PNError!) -> Void in
+            
+        })
+        */
+        
+        
+        
+        
         return true
     }
 

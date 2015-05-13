@@ -8,10 +8,10 @@
 
 import UIKit
 
-class Requirement<T>: NSObject {
-    let cost: T
+class Requirement: NSObject {
+    let cost: Double
     
-    init(cost: T) {
+    init(cost: Double) {
         self.cost = cost
         super.init()
     }

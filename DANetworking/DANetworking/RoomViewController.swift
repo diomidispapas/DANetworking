@@ -22,7 +22,7 @@ class RoomViewController: UIViewController {
         super.viewWillAppear(true)
 
         self.statusLabel.text = "Welcome to \(room!.roomAlias!)"
-        self.getLiveState()
+        // self.getLiveState()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -66,7 +66,7 @@ class RoomViewController: UIViewController {
             }
         })
     }
-    
+    /*
     func getLiveState() {
         MXService.sharedInstance().getMxSession(user!, roomId: self.room!.roomId!) {[unowned self] (mxSession, error) -> Void in
             if let mxSession = mxSession {
@@ -106,12 +106,16 @@ class RoomViewController: UIViewController {
                     }
                 })
                 */
-                
-                room.listenToEvents { (event: MXEvent!, direction: MXEventDirection, roomState:MXRoomState!) -> Void in
-                    dispatch_async(dispatch_get_main_queue(), {
 
-                    println("An event woke me up")
-                    println(event)
+                room.listenToEvents { (event: MXEvent!, direction: MXEventDirection, roomState:MXRoomState!) -> Void in
+                    
+   //                 dispatch_async(dispatch_get_main_queue(), {
+                    if ((event) != nil) {
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            println("An event woke me up")
+                            println(event)
+                        })
+                    }
 
                     switch direction.value {
                     case MXEventDirectionForwards.value:
@@ -121,21 +125,20 @@ class RoomViewController: UIViewController {
                         // Events that occured in the past will come here when requesting pagination.
                         // roomState contains the state of the room just before this event occured.
                         println(event)
+                    case MXEventDirectionSync.value:
+                        println(event)
                     default:
                         println(event)
-                        
-                    }
-                    })
+                        }
+              //      })
                 }
-
             }
-            
             if let error = error {
                 self.displayError("Error getting Matrix Session")
             }
         }
     }
-    
+    */
     /*
     func getLiveState() {
         Service.sharedInstance().getLiveState(user!, completionHandler: { (success, error) -> Void in

@@ -9,8 +9,8 @@
 import UIKit
 
 class DecideViewController: UIViewController {
-    var tasks: [Task<Double>]?
-    var components: [Component<Double>]?
+    var tasks: [Task]?
+    var components: [Component]?
     
     // MARK - Outlets
 
@@ -33,14 +33,14 @@ class DecideViewController: UIViewController {
     // MARK: - DecideViewController
     
     func createTasks() {
-        var requirementsA = Requirement<Double>(cost: 5.0)
-        var taskA = Task<Double>(name: "A", requirement: requirementsA)
+        var requirementsA = Requirement(cost: 5.0)
+        var taskA = Task(name: "A", requirement: requirementsA)
         
-        var requirementsB = Requirement<Double>(cost: 4.0)
-        var taskB = Task<Double>(name: "B", requirement: requirementsB)
+        var requirementsB = Requirement(cost: 4.0)
+        var taskB = Task(name: "B", requirement: requirementsB)
         
-        var requirementsC = Requirement<Double>(cost: 3.0)
-        var taskC = Task<Double>(name: "C", requirement: requirementsC)
+        var requirementsC = Requirement(cost: 3.0)
+        var taskC = Task(name: "C", requirement: requirementsC)
        
         tasks = [Task]()
         tasks?.append(taskA)
@@ -51,9 +51,9 @@ class DecideViewController: UIViewController {
     }
     
     func createComponents() {
-        var componentA = Component<Double>(name: "MacBook", power: 10)
-        var componentB = Component<Double>(name: "PC", power: 8)
-        var componentC = Component<Double>(name: "Tablet", power: 6)
+        var componentA = Component(name: "MacBook", power: 10)
+        var componentB = Component(name: "PC", power: 8)
+        var componentC = Component(name: "Tablet", power: 6)
 
         components = [Component]()
         components?.append(componentA)
