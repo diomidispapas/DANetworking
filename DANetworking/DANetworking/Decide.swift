@@ -7,6 +7,7 @@
 //
 
 
+@objc (Decide)
 class Decide: NSObject, DecideProtocol {
     var components: [Component]?
     var tasks: [Task]?

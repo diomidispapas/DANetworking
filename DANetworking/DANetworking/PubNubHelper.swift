@@ -8,10 +8,11 @@
 
 import Foundation
 
-
-class PubNubHelper: NSObject {
+@objc (PubNubHelper)
+class PubNubHelper: NSObject ,PNDelegate {
     
     static let sharedInstance : PubNubHelper = PubNubHelper()
+    weak var delegate: PubNubHelperDelegate?
     
     func subscribe(channelObjects :[AnyObject], competionHandler: (sucess: Bool, error: PNError?) -> Void) {
         PubNub.subscribeOn(channelObjects, withCompletionHandlingBlock: { (state: PNSubscriptionProcessState, channels: [AnyObject]!, error :PNError!) -> Void in
@@ -25,12 +26,13 @@ class PubNubHelper: NSObject {
             switch state.rawValue {
             case 0: // PNSubscriptionProcessNotSubscribedState
                 // There should be a reason because of which subscription failed and it can be found in 'error' instance
-                competionHandler(sucess: false, error: nil)
                 println("There should be a reason because of which subscription failed and it can be found in 'error' instance")
+                competionHandler(sucess: false, error: nil)
             case 1: // PNSubscriptionProcessSubscribedState
                 // PubNub client completed subscription on specified set of channels.
-                competionHandler(sucess: true, error: nil)
                 println("PubNub client completed subscription on specified set of channels.")
+                PubNub.sharedInstance().setDelegate(self)
+                competionHandler(sucess: true, error: nil)
             default:
                 println("Other case of subscription")
                 competionHandler(sucess: false, error: nil)
@@ -57,7 +59,29 @@ class PubNubHelper: NSObject {
             }
         }
     }
+    
+    
+    // MARK: PNDelegate
+
+    func pubnubClient(client: PubNub!, didReceiveMessage message: PNMessage!) {
+        self.delegate!.didReceiveMessage(message)
+    }
+    
+    func pubnubClient(client: PubNub!, didReceivePresenceEvent event: PNPresenceEvent!) {
+        switch event.type.rawValue {
+        case 0: //// Number of persons changed in observed channel, PNPresenceEventChanged
+            return
+        case 1:
+            return
+        case 2: //PNPresenceEventJoin
+                self.delegate?.didReceiveJoinEvent()
+        default:
+            return
+        }
+    }
 }
+
+
 
 extension PubNubHelper {
     /**
@@ -73,12 +97,10 @@ extension PubNubHelper {
     struct ErrorMessages {
         static let errorSubscribing = "Something went wrong during the subscription process"
         static let errorSendingMessage = "I am sorry I couldnt sent your message. Please try again"
-
     }
     
     struct ActivityMessages {
         static let subscriptionSuccefullyCompleted = "Subscription has succefully completed"
         static let messageSuccefullySent = "Your message has succefully sent"
-
     }
 }

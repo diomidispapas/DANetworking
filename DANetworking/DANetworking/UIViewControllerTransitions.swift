@@ -24,6 +24,12 @@ extension UIViewController {
         controller.room = room
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    func proceedToApplicationSpecificViewController() {
+        let identifier = "ApplicationSpecificViewController"
+        let controller: ApplicationSpecificViewController = self.storyboard!.instantiateViewControllerWithIdentifier(identifier) as! ApplicationSpecificViewController
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 
     
 }

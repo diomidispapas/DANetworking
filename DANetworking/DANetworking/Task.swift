@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc (Task)
 class Task: NSObject {
     let requirement: Requirement
     let name: String

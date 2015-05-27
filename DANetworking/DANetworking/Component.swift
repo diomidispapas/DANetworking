@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc (Component)
 class Component: NSObject, DecideProtocol {
     var name: String
     var power: Double
@@ -34,7 +35,6 @@ class Component: NSObject, DecideProtocol {
         
     }
     
-   
     func executionOfControlLoop() {
         
     }

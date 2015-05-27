@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc (DecideProtocol)
 protocol DecideProtocol {
 
     /**

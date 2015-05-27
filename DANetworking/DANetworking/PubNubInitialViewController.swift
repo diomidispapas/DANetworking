@@ -13,6 +13,7 @@ class PubNubInitialViewController: UIViewController {
     // MARK: Properties
     var pubNub: PubNub?
     var channel: PNChannel?
+    var username: String?
     
     
     // MARK: Outlets
@@ -23,14 +24,23 @@ class PubNubInitialViewController: UIViewController {
     
     @IBOutlet weak var sendButton: UIButton!
     
+    @IBOutlet weak var joinNetworkButton: UIButton!
+    
+    @IBOutlet weak var proceedToSampleAppButton: UIButton!
+    
+    
     //MARK: UIViewController lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Disable send button
-        self.sendButton.enabled = false
+        self.sendButton.enabled = true
+        self.joinNetworkButton.enabled = false
+        self.proceedToSampleAppButton.enabled = false
         
+        
+        /*
         // Subscribe to PubNub
         var channels = [PNChannel]()
         self.channel = PNChannel.channelWithName("demo_tutorial", shouldObservePresence: true) as? PNChannel
@@ -46,7 +56,9 @@ class PubNubInitialViewController: UIViewController {
                 self.sendButton.enabled = true
             }
         })
+        */
         
+        /*
         // Get the pubnub instance
         self.pubNub = PubNub.sharedInstance()
         
@@ -54,18 +66,17 @@ class PubNubInitialViewController: UIViewController {
         self.pubNub?.observationCenter.addMessageReceiveObserver(self, withBlock: { (message:PNMessage!) -> Void in
             if  (message != nil) {
                 var messageString :String = message.message as! String
+                
                 self.updateActivityLabel(text:"Message received: " + messageString)
             }
         })
+        */
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    deinit {
+        println(" \(object_getClassName(self)) is deallocated")
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
     
     // MARK: PubNubInitialViewController
     
@@ -82,15 +93,44 @@ class PubNubInitialViewController: UIViewController {
     // MARK: Actions
 
     @IBAction func sendButtonPressed(sender: AnyObject) {
-        var message = self.messageTextField.text
+        self.username = self.messageTextField.text
+        self.joinNetworkButton.enabled = true;
+
+        self.updateActivityLabel(text: "Usename: \(self.username) has been setted")
+    }
+    
+    @IBAction func joinNetworkButtonPressed(sender: AnyObject) {
+        
+        DANetwork.sharedInstance().subscribeUser(self.username!, toChannelWithName: "demo_tutorial") { (success: Bool, error: NSError?) -> Void in
+            if (error != nil) {
+                self.updateActivityLabel(text: PubNubHelper.ErrorMessages.errorSubscribing)
+            } else {
+                self.updateActivityLabel(text: PubNubHelper.ActivityMessages.subscriptionSuccefullyCompleted)
+                // self.sendButton.enabled = true
+                self.proceedToSampleAppButton.enabled = true
+                
+            }
+        }
+        
+    
+        /*
+        var message = "JOIN_NETWORK_USERNAME:\(self.username!)"
         
         PubNubHelper.sharedInstance.sendMessage(message, channel: self.channel!, completionHandler: { (sucess, error) -> Void in
             if sucess {
-                self.updateActivityLabel(text: PubNubHelper.ActivityMessages.messageSuccefullySent)
+                self.updateActivityLabel(text: "Initial identification achieved with usename: \(self.username!)")
+                self.proceedToSampleAppButton.enabled = true
             }
             else {
                 self.updateActivityLabel(text: PubNubHelper.ErrorMessages.errorSendingMessage)
             }
         })
+        */
     }
+    
+    @IBAction func proceedToSampleAppButtonPressed(sender: AnyObject) {
+        self.proceedToApplicationSpecificViewController()
+    }
+    
+    
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc (Requirement)
 class Requirement: NSObject {
     let cost: Double
     
