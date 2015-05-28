@@ -74,7 +74,7 @@ class PubNubHelper: NSObject ,PNDelegate {
         case 1:
             return
         case 2: //PNPresenceEventJoin
-                self.delegate?.didReceiveJoinEvent()
+            self.delegate?.didReceiveJoinEvent()
         default:
             return
         }

@@ -8,6 +8,12 @@
 
 #import "DAMessage.h"
 
+NSString* const kMessageIdKey = @"@MessageId:";
+NSString* const kMessageSender = @"@MessageSender:";
+NSString* const kMessageType = @"@MessageType:";
+NSString* const kMessageBody = @"@MessageBody:";
+
+
 @interface DAMessage ()
 
 @property (nonatomic, strong, nonnull) NSString *messageId;
@@ -36,6 +42,40 @@
         _body = body;
     }
     return self;
+}
+
+
+- (instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString {
+    NSString *clearIdentifer = [decodedString stringByReplacingOccurrencesOfString:kMessageIdKey withString:@":"];
+    NSString *clearIdentifer2 = [clearIdentifer stringByReplacingOccurrencesOfString:kMessageSender withString:@":"];
+    NSString *clearIdentifer3 = [clearIdentifer2 stringByReplacingOccurrencesOfString:kMessageType  withString:@":"];
+    NSString *clearIdentifer4 = [clearIdentifer3 stringByReplacingOccurrencesOfString:kMessageBody withString:@":"];
+
+    NSArray *tokens = [clearIdentifer4 componentsSeparatedByString:@":"];
+    if ([tokens count] == 5) {
+        self = [super init];
+        if (self) {
+            _messageId = [tokens objectAtIndex:1];
+            _sender = [tokens objectAtIndex:2];
+            _type = MessageTypeUnknown;
+            _body = [tokens objectAtIndex:4];
+        }
+    }
+    return self;
+}
+
+- (NSString *)encodeToNSString {
+        NSString *encodedString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
+                                          kMessageIdKey,
+                                          _messageId,
+                                          kMessageSender,
+                                          _sender,
+                                          kMessageType,
+                                          [self stringWithMessageEnum:_type],
+                                          kMessageBody,
+                                          _body];
+                                        
+                                         return encodedString;
 }
 
 

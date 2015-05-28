@@ -28,4 +28,7 @@ typedef NS_ENUM(NSUInteger, MessageType) {
                       messageType:(MessageType)type
                              body:(NSString * __nonnull)body;
 
+- (instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString;
+- (NSString * __nonnull)encodeToNSString;
+
 @end

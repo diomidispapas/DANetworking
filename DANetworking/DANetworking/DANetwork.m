@@ -76,7 +76,8 @@
     
     switch (_serviceType) {
         case ServiceTypePubNubService: {
-            [[PubNubHelper sharedInstance] sendMessage:message.body channel:self.channel completionHandler:^(BOOL success, PNError *error) {
+            NSString *encodedMessage = [message encodeToNSString];
+            [[PubNubHelper sharedInstance] sendMessage:encodedMessage channel:self.channel completionHandler:^(BOOL success, PNError *error) {
                 if (success) {
                     completion(YES, nil);
                 }
@@ -97,8 +98,11 @@
 #pragma mark - <PubNubHelperDelegate>
 
 - (void)didReceiveMessage:(PNMessage *)message {
-    DAMessage *da_message = [[DAMessage alloc] initWithMessageId:@"Unknown_message_id" sender:@"Unknown_sender" messageType:MessageTypeUnknown body:message.message];
-    [self.delegate didReceiveMessage:da_message];
+    DAMessage *da_message = [[DAMessage alloc] initWithDecodedNSString:message.message];
+    
+    if (![da_message.sender isEqualToString:self.userIdentifier]) {
+        [self.delegate didReceiveMessage:da_message];
+    }
 }
 
 - (void)didReceiveJoinEvent {

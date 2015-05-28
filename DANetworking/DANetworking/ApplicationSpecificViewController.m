@@ -87,7 +87,7 @@
 #pragma mark - <DANetworkDelegate>
 
 - (void)didReceiveMessage:(DAMessage *)message {
-    NSString *labelText = [NSString stringWithFormat:@"Message received with body: %@", message.body];
+    NSString *labelText = [NSString stringWithFormat:@"Message received from: %@ with body: %@",message.sender , message.body];
     [self updateActivityLabelWithText:labelText];
 }
 
