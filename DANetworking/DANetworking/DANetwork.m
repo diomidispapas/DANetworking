@@ -98,7 +98,7 @@
 #pragma mark - <PubNubHelperDelegate>
 
 - (void)didReceiveMessage:(PNMessage *)message {
-    DAMessage *da_message = [[DAMessage alloc] initWithDecodedNSString:message.message];
+    DAMessage *da_message = [[DAMessage alloc] initWithDecodedNSString:(NSString *)message.message];
     
     if (![da_message.sender isEqualToString:self.userIdentifier]) {
         [self.delegate didReceiveMessage:da_message];

@@ -27,13 +27,13 @@ typedef NS_ENUM(NSUInteger, ServiceType) {
 @property (nonatomic, strong, nullable, readonly) NSString *userIdentifier;
 
 
-+ (instancetype)sharedInstance;
++ (nullable instancetype)sharedInstance;
 
 - (void)subscribeUser:(NSString * __nonnull)userIdentifier
     toChannelWithName:(NSString * __nonnull)channelName
-      completionBlock:(void(^)(BOOL success, NSError * __nullable error))completion;
+      completionBlock:(void(^ __nonnull)(BOOL success, NSError * __nullable error))completion;
 
 - (void)sendMessage:(DAMessage * __nonnull)message
-    completionBlock:(void(^)(BOOL success, NSError * __nullable error))completion;
+    completionBlock:(void(^ __nonnull)(BOOL success, NSError * __nullable error))completion;
 
 @end

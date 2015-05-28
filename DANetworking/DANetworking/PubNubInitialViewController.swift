@@ -101,7 +101,7 @@ class PubNubInitialViewController: UIViewController {
     
     @IBAction func joinNetworkButtonPressed(sender: AnyObject) {
         
-        DANetwork.sharedInstance().subscribeUser(self.username!, toChannelWithName: "demo_tutorial") { (success: Bool, error: NSError?) -> Void in
+        DANetwork.sharedInstance()!.subscribeUser(self.username!, toChannelWithName: "demo_tutorial") { (success: Bool, error: NSError?) -> Void in
             if (error != nil) {
                 self.updateActivityLabel(text: PubNubHelper.ErrorMessages.errorSubscribing)
             } else {

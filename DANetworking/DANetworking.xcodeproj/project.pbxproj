@@ -322,12 +322,8 @@
 		3ADDBE4F1B1636A80072889B /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				3ADDBE5A1B1712250072889B /* DANetwork Objects */,
 				3AA396C91AF8D7D5002FAE2D /* Services */,
-				3ADDBE521B1636FE0072889B /* DANetwork.h */,
-				3ADDBE531B1636FE0072889B /* DANetwork.m */,
-				3ADDBE591B1665BF0072889B /* DANetworkDelegate.h */,
-				3ADDBE551B163B700072889B /* DAMessage.h */,
-				3ADDBE561B163B700072889B /* DAMessage.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -350,6 +346,18 @@
 				3ADDBE581B164A310072889B /* PubNubHelperDelegate.h */,
 			);
 			name = PubNub;
+			sourceTree = "<group>";
+		};
+		3ADDBE5A1B1712250072889B /* DANetwork Objects */ = {
+			isa = PBXGroup;
+			children = (
+				3ADDBE521B1636FE0072889B /* DANetwork.h */,
+				3ADDBE531B1636FE0072889B /* DANetwork.m */,
+				3ADDBE591B1665BF0072889B /* DANetworkDelegate.h */,
+				3ADDBE551B163B700072889B /* DAMessage.h */,
+				3ADDBE561B163B700072889B /* DAMessage.m */,
+			);
+			name = "DANetwork Objects";
 			sourceTree = "<group>";
 		};
 		710614B14A4756653AD3F11A /* Pods */ = {

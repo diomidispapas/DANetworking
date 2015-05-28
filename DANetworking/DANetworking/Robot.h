@@ -14,10 +14,10 @@
 @property (nonatomic, strong, nonnull, readonly) NSMutableArray *tasks;
 @property (nonatomic, strong, nonnull, readonly) NSMutableArray *localTasks;
 
-- (instancetype)initWithName:(NSString * __nonnull)name
+- (nullable instancetype)initWithName:(NSString * __nonnull)name
                        speed:(double)speed;
 
-- (instancetype)initWithName:(NSString * __nonnull)name
+- (nullable instancetype)initWithName:(NSString * __nonnull)name
                        speed:(double)speed
                        tasks:(NSMutableArray * __nonnull)tasks;
 @end

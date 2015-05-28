@@ -23,12 +23,12 @@ typedef NS_ENUM(NSUInteger, MessageType) {
 @property (nonatomic, assign, readonly) MessageType type;
 @property (nonatomic, strong, nonnull, readonly) NSString *body;
 
-- (instancetype)initWithMessageId:(NSString * __nonnull)messageId
+- (nullable instancetype)initWithMessageId:(NSString * __nonnull)messageId
                            sender:(NSString * __nonnull)sender
                       messageType:(MessageType)type
                              body:(NSString * __nonnull)body;
 
-- (instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString;
+- (nullable instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString;
 - (NSString * __nonnull)encodeToNSString;
 
 @end

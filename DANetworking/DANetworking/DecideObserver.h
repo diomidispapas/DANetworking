@@ -15,7 +15,7 @@
 @property (nonatomic, strong, nullable, readonly) Robot *myRobot;
 @property (nonatomic, strong, nullable, readonly) NSMutableArray *robots;
 
-+ (instancetype)sharedInstance;
++ (nullable instancetype)sharedInstance;
 - (void)setMyRobot:( Robot * __nonnull )robot;
 - (void)addPeer:( Robot * __nonnull )robot;
 
