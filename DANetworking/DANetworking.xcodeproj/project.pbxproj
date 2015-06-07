@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A402BB31AFB76910098D69D /* Requirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BB21AFB76910098D69D /* Requirement.swift */; };
-		3A402BB51AFB83290098D69D /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BB41AFB83290098D69D /* Component.swift */; };
-		3A402BB91AFB83640098D69D /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BB81AFB83640098D69D /* Task.swift */; };
-		3A402BBD1AFB86850098D69D /* DecideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BBC1AFB86850098D69D /* DecideViewController.swift */; };
-		3A402BBF1AFB95E90098D69D /* DecideProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */; };
-		3A476F8B1B03CDAE00F0FA4F /* Decide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A476F8A1B03CDAE00F0FA4F /* Decide.swift */; };
 		3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */; };
+		3A61A31E1B24B28E003917B0 /* RobotTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A31D1B24B28E003917B0 /* RobotTask.m */; };
+		3A61A3221B24BB2D003917B0 /* ApplicationSpecificViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A3211B24BB2D003917B0 /* ApplicationSpecificViewModel.m */; };
 		3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */; };
 		3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */; };
 		3AA3969E1AF8B7AD002FAE2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */; };
@@ -58,14 +54,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3A402BB21AFB76910098D69D /* Requirement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requirement.swift; sourceTree = "<group>"; };
-		3A402BB41AFB83290098D69D /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
-		3A402BB81AFB83640098D69D /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		3A402BBC1AFB86850098D69D /* DecideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideViewController.swift; sourceTree = "<group>"; };
-		3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideProtocol.swift; sourceTree = "<group>"; };
-		3A476F8A1B03CDAE00F0FA4F /* Decide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decide.swift; sourceTree = "<group>"; };
 		3A61A3181B24AA14003917B0 /* DANetwork+Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DANetwork+Messages.h"; sourceTree = "<group>"; };
 		3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DANetwork+Messages.m"; sourceTree = "<group>"; };
+		3A61A31C1B24B28E003917B0 /* RobotTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobotTask.h; sourceTree = "<group>"; };
+		3A61A31D1B24B28E003917B0 /* RobotTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RobotTask.m; sourceTree = "<group>"; };
+		3A61A3201B24BB2D003917B0 /* ApplicationSpecificViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationSpecificViewModel.h; sourceTree = "<group>"; };
+		3A61A3211B24BB2D003917B0 /* ApplicationSpecificViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationSpecificViewModel.m; sourceTree = "<group>"; };
+		3A61A3231B24C0FB003917B0 /* DecideDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecideDelegate.h; sourceTree = "<group>"; };
 		3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubHelper.swift; sourceTree = "<group>"; };
 		3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubInitialViewController.swift; sourceTree = "<group>"; };
 		3AA396981AF8B7AD002FAE2D /* DANetworking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DANetworking.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,10 +126,9 @@
 		3A402BB11AFB76760098D69D /* Decide Sample */ = {
 			isa = PBXGroup;
 			children = (
-				3ADDBE481B1617E40072889B /* Application Specific */,
+				3ADDBE481B1617E40072889B /* Application Specific (Example) */,
 				3A402BC11AFB9C810098D69D /* Generic */,
 				3A402BC01AFB9C010098D69D /* Spesific Objects */,
-				3A476F8A1B03CDAE00F0FA4F /* Decide.swift */,
 			);
 			name = "Decide Sample";
 			sourceTree = "<group>";
@@ -149,20 +143,9 @@
 			name = "Networking Flow (Matrix)";
 			sourceTree = "<group>";
 		};
-		3A402BBB1AFB866A0098D69D /* Decide Flow */ = {
-			isa = PBXGroup;
-			children = (
-				3A402BBC1AFB86850098D69D /* DecideViewController.swift */,
-			);
-			name = "Decide Flow";
-			sourceTree = "<group>";
-		};
 		3A402BC01AFB9C010098D69D /* Spesific Objects */ = {
 			isa = PBXGroup;
 			children = (
-				3A402BB21AFB76910098D69D /* Requirement.swift */,
-				3A402BB41AFB83290098D69D /* Component.swift */,
-				3A402BB81AFB83640098D69D /* Task.swift */,
 			);
 			name = "Spesific Objects";
 			sourceTree = "<group>";
@@ -170,7 +153,7 @@
 		3A402BC11AFB9C810098D69D /* Generic */ = {
 			isa = PBXGroup;
 			children = (
-				3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */,
+				3A61A3231B24C0FB003917B0 /* DecideDelegate.h */,
 			);
 			name = Generic;
 			sourceTree = "<group>";
@@ -186,6 +169,7 @@
 		3A61A3151B249D37003917B0 /* Message Sending Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3A61A31F1B24BB15003917B0 /* View Model */,
 				3ADDBE451B1607C30072889B /* ApplicationSpecificViewController.h */,
 				3ADDBE461B1607C30072889B /* ApplicationSpecificViewController.m */,
 			);
@@ -205,6 +189,15 @@
 				3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */,
 			);
 			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		3A61A31F1B24BB15003917B0 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				3A61A3201B24BB2D003917B0 /* ApplicationSpecificViewModel.h */,
+				3A61A3211B24BB2D003917B0 /* ApplicationSpecificViewModel.m */,
+			);
+			name = "View Model";
 			sourceTree = "<group>";
 		};
 		3A8D13801B02667B000583C1 /* Matrix Service (NSURLSession) */ = {
@@ -319,7 +312,6 @@
 			isa = PBXGroup;
 			children = (
 				3A8D13811B026695000583C1 /* PubNub Flow */,
-				3A402BBB1AFB866A0098D69D /* Decide Flow */,
 				3A402BBA1AFB865B0098D69D /* Networking Flow (Matrix) */,
 				3AA396DC1AF923C4002FAE2D /* UIViewControllerTransitions.swift */,
 			);
@@ -343,15 +335,17 @@
 			name = "Matrix Service (Objective-C)";
 			sourceTree = "<group>";
 		};
-		3ADDBE481B1617E40072889B /* Application Specific */ = {
+		3ADDBE481B1617E40072889B /* Application Specific (Example) */ = {
 			isa = PBXGroup;
 			children = (
 				3ADDBE491B1618090072889B /* Robot.h */,
 				3ADDBE4A1B1618090072889B /* Robot.m */,
+				3A61A31C1B24B28E003917B0 /* RobotTask.h */,
+				3A61A31D1B24B28E003917B0 /* RobotTask.m */,
 				3ADDBE4C1B1630360072889B /* DecideObserver.h */,
 				3ADDBE4D1B1630360072889B /* DecideObserver.m */,
 			);
-			name = "Application Specific";
+			name = "Application Specific (Example)";
 			sourceTree = "<group>";
 		};
 		3ADDBE4F1B1636A80072889B /* Networking */ = {
@@ -583,22 +577,17 @@
 			files = (
 				3AD9FA5E1AFA9480002DCADC /* MXService.swift in Sources */,
 				3ADDBE571B163B700072889B /* DAMessage.m in Sources */,
-				3A402BB31AFB76910098D69D /* Requirement.swift in Sources */,
-				3A402BBD1AFB86850098D69D /* DecideViewController.swift in Sources */,
 				3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */,
 				3AA396DB1AF92385002FAE2D /* GroupViewController.swift in Sources */,
 				3AA396D51AF8ED48002FAE2D /* LoginViewController.swift in Sources */,
 				3AA396C31AF8BEF9002FAE2D /* ServiceConvenience.swift in Sources */,
+				3A61A31E1B24B28E003917B0 /* RobotTask.m in Sources */,
 				3AA396DF1AF92E43002FAE2D /* RoomViewController.swift in Sources */,
 				3ADDBE4B1B1618090072889B /* Robot.m in Sources */,
-				3A402BB91AFB83640098D69D /* Task.swift in Sources */,
-				3A476F8B1B03CDAE00F0FA4F /* Decide.swift in Sources */,
 				3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */,
-				3A402BB51AFB83290098D69D /* Component.swift in Sources */,
 				3ADDBE471B1607C30072889B /* ApplicationSpecificViewController.m in Sources */,
 				3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */,
 				3AA396CF1AF8E928002FAE2D /* Room.swift in Sources */,
-				3A402BBF1AFB95E90098D69D /* DecideProtocol.swift in Sources */,
 				3AA396CC1AF8D807002FAE2D /* User.swift in Sources */,
 				3AA3969E1AF8B7AD002FAE2D /* AppDelegate.swift in Sources */,
 				3ADDBE441B13910D0072889B /* MXService.m in Sources */,
@@ -606,6 +595,7 @@
 				3AA396BF1AF8B8AA002FAE2D /* Service.swift in Sources */,
 				3ADDBE541B1636FE0072889B /* DANetwork.m in Sources */,
 				3AA396DD1AF923C4002FAE2D /* UIViewControllerTransitions.swift in Sources */,
+				3A61A3221B24BB2D003917B0 /* ApplicationSpecificViewModel.m in Sources */,
 				3AA396C11AF8B8E4002FAE2D /* ServiceConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

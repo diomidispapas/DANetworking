@@ -7,13 +7,14 @@
 //
 
 #import "ApplicationSpecificViewController.h"
+#import "ApplicationSpecificViewModel.h"
 #import "DANetworking-Swift.h" //Import Swift files
 
-#import "DecideObserver.h"
 #import "Robot.h"
 
 #import "DANetwork.h"
 #import "DAMessage.h"
+
 
 @interface ApplicationSpecificViewController () <DANetworkDelegate>
 
@@ -22,6 +23,8 @@
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *subscribersLabel;
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *subscribersNumberLabel;
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *activityLabel;
+
+@property (strong, nonatomic, nonnull) ApplicationSpecificViewModel *viewModel;
 
 @end
 
@@ -34,13 +37,13 @@
     
     [DANetwork sharedInstance].delegate = self;
     
-    [self setUpApplicationSpecificAssets];
+    _viewModel = [[ApplicationSpecificViewModel alloc] init];
+    
+    [_viewModel offlineStart];
     
     NSString *initialActivityLabelMessage = [NSString stringWithFormat:@"%@ is connected to the channel",[DANetwork sharedInstance].userIdentifier];
     [self updateActivityLabelWithText:initialActivityLabelMessage];
 }
-
-
 
 - (void)dealloc {
     NSLog(@"%s is deallocated", object_getClassName(self));
@@ -49,42 +52,18 @@
 
 #pragma mark - ApplicationSpecificViewController
 
-- (void)setUpApplicationSpecificAssets {
-    // Set up my robot
-    Robot *myRobot = [[Robot alloc] initWithName:[DANetwork sharedInstance].userIdentifier speed:1.2];
-    [[DecideObserver sharedInstance]setMyRobot:myRobot];
-    
-    // Set up peers
-    /*
-    for (NSString* participant in [DANetwork sharedInstance].) {
-        Robot *peer = [[Robot alloc] initWithName:participant speed:0.8];
-        [[DecideObserver sharedInstance] addPeer:peer];
-    }
-    */
-    [self setUpSubscribersLabel];
-}
-
-- (void)setUpSubscribersLabel {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableString *subscribers = [NSMutableString stringWithString:[DecideObserver sharedInstance].myRobot.name];
-        for (Robot *peer in [DecideObserver sharedInstance].robots) {
-            [subscribers appendFormat:@", %@",peer.name];
-        }
-        self.subscribersLabel.text = subscribers;
-        self.subscribersNumberLabel.text = [NSString stringWithFormat:@"%lu", [DANetwork sharedInstance].participants.count];
-    });
-}
-
 - (void)updateActivityLabelWithText:(NSString *)text {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.activityLabel.text = text;
     });
 }
 
-- (IBAction)sendMessageTypeUnknownButtonPressed:(id)sender {
-    [[DecideObserver sharedInstance] sendDummyMessageToPeers];
-}
 
+#pragma mark - Actions
+
+- (IBAction)sendMessageTypeUnknownButtonPressed:(id)sender {
+    [_viewModel sendMessageToPeers];
+}
 
 
 #pragma mark - <DANetworkDelegate>
@@ -96,7 +75,6 @@
 
 - (void)didReceiveJoinEvent:(DAMessage *)message {
     [self updateActivityLabelWithText:@"Someone joined your channel"];
-    [self setUpSubscribersLabel];
 }
 
 @end

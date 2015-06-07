@@ -8,16 +8,23 @@
 
 @import Foundation;
 
+@class RobotTask;
+
 @interface Robot : NSObject
 
 @property (nonatomic, strong, nonnull, readonly) NSString *name;
 @property (nonatomic, strong, nonnull, readonly) NSMutableArray *tasks;
 @property (nonatomic, strong, nonnull, readonly) NSMutableArray *localTasks;
+@property (nonatomic, assign, readonly) double maxSpeed;
+
 
 - (nullable instancetype)initWithName:(NSString * __nonnull)name
-                       speed:(double)speed;
+                             maxSpeed:(double)maxSpeed;
 
 - (nullable instancetype)initWithName:(NSString * __nonnull)name
-                       speed:(double)speed
-                       tasks:(NSMutableArray * __nonnull)tasks;
+                             maxSpeed:(double)maxSpeed
+                                tasks:(NSMutableArray * __nonnull)tasks;
+
+- (void)addTask:(RobotTask *)task;
+
 @end
