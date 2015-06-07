@@ -9,12 +9,16 @@
 #import "DANetwork.h"
 #import "DANetworking-Swift.h" //Import Swift files
 
+#import "DANetwork+Messages.h"
+
 #import "DAMessage.h"
 
 @interface DANetwork () <PubNubHelperDelegate>
+
 @property (nonatomic, strong, nullable) PNChannel *channel;
 @property (nonatomic, strong, nullable) NSString *userIdentifier;
 @property (nonatomic, strong, nullable) NSMutableArray *participants;
+
 @end
 
 @implementation DANetwork
@@ -56,7 +60,17 @@
             [[PubNubHelper sharedInstance] subscribe:channels competionHandler:^(BOOL success, PNError * __nullable error) {
                 if (success) {
                     [PubNubHelper sharedInstance].delegate = self;
-                    completion(YES, nil);
+                    
+                    // Send message joining message to others
+                    [self sendJoiningMessageWithCompletionBlock:^(BOOL sucess, NSError *error) {
+                        if (success) {
+                        #ifdef DEBUG
+                            NSLog(@"DANetwrok: Joining message sent");
+                        #endif
+                        completion(YES, nil);
+                        }
+                    }];
+                    
                 } else {
                     completion(NO, [NSError errorWithDomain:error.domain code:error.code userInfo:nil]);
                 }
@@ -100,17 +114,23 @@
 
 - (void)didReceiveMessage:(PNMessage *)message {
     DAMessage *da_message = [[DAMessage alloc] initWithDecodedNSString:(NSString *)message.message];
-    
     if (![da_message.sender isEqualToString:self.userIdentifier]) {
-        [self.delegate didReceiveMessage:da_message];
+        
+        switch (da_message.type) {
+            case MessageTypeUnknown:
+                [self.delegate didReceiveMessage:da_message];
+                break;
+            case MessageTypeJoiningMessage:
+                [self.delegate didReceiveJoinEvent:da_message];
+                break;
+            case MessageTypeContributionAnalysisMessage:
+                break;
+            case MessageTypeStatusUpdateMessage:
+                break;
+            case MessageTypeMajorChangeMessage:
+                break;
+           }
     }
-}
-
-- (void)didReceiveJoinEvent {
-    #warning Complete here and add participants ID.
-    [self.participants addObject:0];
-    
-    [self.delegate didReceiveJoinEvent];
 }
 
 @end

@@ -10,6 +10,8 @@
 @class PubNub;
 
 @protocol PubNubHelperDelegate <NSObject>
+
 - (void)didReceiveMessage:(PNMessage *)message;
 - (void)didReceiveJoinEvent;
+
 @end

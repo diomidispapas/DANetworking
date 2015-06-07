@@ -71,7 +71,7 @@
             [subscribers appendFormat:@", %@",peer.name];
         }
         self.subscribersLabel.text = subscribers;
-        self.subscribersNumberLabel.text = [NSString stringWithFormat:@"%d", [DANetwork sharedInstance].participants.count];
+        self.subscribersNumberLabel.text = [NSString stringWithFormat:@"%lu", [DANetwork sharedInstance].participants.count];
     });
 }
 
@@ -94,7 +94,7 @@
     [self updateActivityLabelWithText:labelText];
 }
 
-- (void)didReceiveJoinEvent {
+- (void)didReceiveJoinEvent:(DAMessage *)message {
     [self updateActivityLabelWithText:@"Someone joined your channel"];
     [self setUpSubscribersLabel];
 }

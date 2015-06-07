@@ -9,7 +9,7 @@
 import Foundation
 
 @objc (PubNubHelper)
-class PubNubHelper: NSObject ,PNDelegate {
+class PubNubHelper: NSObject, PNDelegate {
     
     static let sharedInstance : PubNubHelper = PubNubHelper()
     weak var delegate: PubNubHelperDelegate?
@@ -26,17 +26,22 @@ class PubNubHelper: NSObject ,PNDelegate {
             switch state.rawValue {
             case 0: // PNSubscriptionProcessNotSubscribedState
                 // There should be a reason because of which subscription failed and it can be found in 'error' instance
-                println("There should be a reason because of which subscription failed and it can be found in 'error' instance")
+                #if DEBUG
+                    println("There should be a reason because of which subscription failed and it can be found in 'error' instance")
+                #endif
                 competionHandler(sucess: false, error: nil)
             case 1: // PNSubscriptionProcessSubscribedState
                 // PubNub client completed subscription on specified set of channels.
-                println("PubNub client completed subscription on specified set of channels.")
+                #if DEBUG
+                    println("PubNub client completed subscription on specified set of channels.")
+                #endif
                 PubNub.sharedInstance().setDelegate(self)
                 competionHandler(sucess: true, error: nil)
             default:
-                println("Other case of subscription")
+                #if DEBUG
+                    println("Other case of subscription")
+                #endif
                 competionHandler(sucess: false, error: nil)
-
             }
         })
     }
@@ -46,15 +51,23 @@ class PubNubHelper: NSObject ,PNDelegate {
         PubNub.sendMessage(message, toChannel: channel) { (state: PNMessageState, data: AnyObject!) -> Void in
             switch (state.rawValue) {
             case 0:
-                println("senting")
+                #if DEBUG
+                    println("PubNub: Sending...")
+                #endif
             case 1:
-                println("sent")
+                #if DEBUG
+                    println("PubNub: Sent")
+                #endif
                 completionHandler(sucess: true, error: nil)
             case 2:
-                println("error")
+                #if DEBUG
+                    println("PubNub: Error sending message")
+                #endif
                 completionHandler(sucess: false, error: nil)
             default:
-                println("Other case of sending")
+                #if DEBUG
+                    println("PubNub: Other case of sending")
+                #endif
                 completionHandler(sucess: false, error: nil)
             }
         }
@@ -66,7 +79,7 @@ class PubNubHelper: NSObject ,PNDelegate {
     func pubnubClient(client: PubNub!, didReceiveMessage message: PNMessage!) {
         self.delegate!.didReceiveMessage(message)
     }
-    
+
     func pubnubClient(client: PubNub!, didReceivePresenceEvent event: PNPresenceEvent!) {
         switch event.type.rawValue {
         case 0: //// Number of persons changed in observed channel, PNPresenceEventChanged
@@ -74,10 +87,17 @@ class PubNubHelper: NSObject ,PNDelegate {
         case 1:
             return
         case 2: //PNPresenceEventJoin
-            self.delegate?.didReceiveJoinEvent()
+            self.delegate!.didReceiveJoinEvent()
         default:
             return
         }
+    }
+    
+    
+    func pubnubClient(client: PubNub!, didReceiveParticipants presenceInformation: PNHereNow!, forObjects channelObjects: [AnyObject]!) {
+        #if DEBUG
+            println(presenceInformation.participantsCountForChannel(channelObjects))
+        #endif
     }
 }
 

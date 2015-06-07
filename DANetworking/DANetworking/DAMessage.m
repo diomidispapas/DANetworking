@@ -16,10 +16,10 @@ NSString* const kMessageBody = @"@MessageBody:";
 
 @interface DAMessage ()
 
-@property (nonatomic, strong, nonnull) NSString *messageId;
-@property (nonatomic, strong, nonnull) NSString *sender;
+@property (nonatomic, copy, nonnull) NSString *messageId;
+@property (nonatomic, copy, nonnull) NSString *sender;
 @property (nonatomic, assign) MessageType type;
-@property (nonatomic, strong, nonnull) NSString *body;
+@property (nonatomic, copy, nonnull) NSString *body;
 
 @end
 
@@ -56,7 +56,7 @@ NSString* const kMessageBody = @"@MessageBody:";
         if (self) {
             _messageId = [tokens objectAtIndex:1];
             _sender = [tokens objectAtIndex:2];
-            _type = MessageTypeUnknown;
+            _type = [self messageTypeFromNSString:[tokens objectAtIndex:3]];
             _body = [tokens objectAtIndex:4];
         }
     }
@@ -92,6 +92,17 @@ NSString* const kMessageBody = @"@MessageBody:";
                      @"MessageTypeMajorChangeMessage",
                      ];
     return (NSString *)[array objectAtIndex:message];
+}
 
+- (MessageType)messageTypeFromNSString:(NSString *)messageTypeInStringFormat {
+    NSArray *array = @[
+                       @"MessageTypeUnknown",
+                       @"MessageTypeJoiningMessage",
+                       @"MessageTypeContributionAnalysisMessage",
+                       @"MessageTypeStatusUpdateMessage",
+                       @"MessageTypeMajorChangeMessage",
+                       ];
+    
+    return ([array indexOfObject:messageTypeInStringFormat]);
 }
 @end

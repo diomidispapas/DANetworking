@@ -6,11 +6,14 @@
 //  Copyright (c) 2015 Diomidis Papas. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 @class DAMessage;
 
 @protocol DANetworkDelegate <NSObject>
+
 @optional
 - (void)didReceiveMessage:(DAMessage * __nonnull)message;
-- (void)didReceiveJoinEvent;
+- (void)didReceiveJoinEvent:(DAMessage * __nonnull)message;
+
 @end

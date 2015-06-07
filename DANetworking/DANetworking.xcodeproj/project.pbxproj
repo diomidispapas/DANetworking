@@ -13,6 +13,7 @@
 		3A402BBD1AFB86850098D69D /* DecideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BBC1AFB86850098D69D /* DecideViewController.swift */; };
 		3A402BBF1AFB95E90098D69D /* DecideProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */; };
 		3A476F8B1B03CDAE00F0FA4F /* Decide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A476F8A1B03CDAE00F0FA4F /* Decide.swift */; };
+		3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */; };
 		3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */; };
 		3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */; };
 		3AA3969E1AF8B7AD002FAE2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */; };
@@ -63,6 +64,8 @@
 		3A402BBC1AFB86850098D69D /* DecideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideViewController.swift; sourceTree = "<group>"; };
 		3A402BBE1AFB95E90098D69D /* DecideProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideProtocol.swift; sourceTree = "<group>"; };
 		3A476F8A1B03CDAE00F0FA4F /* Decide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decide.swift; sourceTree = "<group>"; };
+		3A61A3181B24AA14003917B0 /* DANetwork+Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DANetwork+Messages.h"; sourceTree = "<group>"; };
+		3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DANetwork+Messages.m"; sourceTree = "<group>"; };
 		3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubHelper.swift; sourceTree = "<group>"; };
 		3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubInitialViewController.swift; sourceTree = "<group>"; };
 		3AA396981AF8B7AD002FAE2D /* DANetworking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DANetworking.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +175,38 @@
 			name = Generic;
 			sourceTree = "<group>";
 		};
+		3A61A3141B249D29003917B0 /* Initial Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */,
+			);
+			name = "Initial Controller";
+			sourceTree = "<group>";
+		};
+		3A61A3151B249D37003917B0 /* Message Sending Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3ADDBE451B1607C30072889B /* ApplicationSpecificViewController.h */,
+				3ADDBE461B1607C30072889B /* ApplicationSpecificViewController.m */,
+			);
+			name = "Message Sending Controller";
+			sourceTree = "<group>";
+		};
+		3A61A3161B249D53003917B0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		3A61A3171B249D63003917B0 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
 		3A8D13801B02667B000583C1 /* Matrix Service (NSURLSession) */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,9 +220,8 @@
 		3A8D13811B026695000583C1 /* PubNub Flow */ = {
 			isa = PBXGroup;
 			children = (
-				3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */,
-				3ADDBE451B1607C30072889B /* ApplicationSpecificViewController.h */,
-				3ADDBE461B1607C30072889B /* ApplicationSpecificViewController.m */,
+				3A61A3141B249D29003917B0 /* Initial Controller */,
+				3A61A3151B249D37003917B0 /* Message Sending Controller */,
 			);
 			name = "PubNub Flow";
 			sourceTree = "<group>";
@@ -215,9 +249,10 @@
 		3AA3969A1AF8B7AD002FAE2D /* DANetworking */ = {
 			isa = PBXGroup;
 			children = (
-				3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */,
-				3AA396D11AF8ED12002FAE2D /* Controller */,
+				3A61A3171B249D63003917B0 /* App Delegate */,
 				3AA396BD1AF8B897002FAE2D /* Model */,
+				3A61A3161B249D53003917B0 /* View */,
+				3AA396D11AF8ED12002FAE2D /* Controller */,
 				3AA396A11AF8B7AD002FAE2D /* Main.storyboard */,
 				3AA396A41AF8B7AD002FAE2D /* Images.xcassets */,
 				3AA396A61AF8B7AD002FAE2D /* LaunchScreen.xib */,
@@ -353,6 +388,8 @@
 			children = (
 				3ADDBE521B1636FE0072889B /* DANetwork.h */,
 				3ADDBE531B1636FE0072889B /* DANetwork.m */,
+				3A61A3181B24AA14003917B0 /* DANetwork+Messages.h */,
+				3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */,
 				3ADDBE591B1665BF0072889B /* DANetworkDelegate.h */,
 				3ADDBE551B163B700072889B /* DAMessage.h */,
 				3ADDBE561B163B700072889B /* DAMessage.m */,
@@ -559,6 +596,7 @@
 				3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */,
 				3A402BB51AFB83290098D69D /* Component.swift in Sources */,
 				3ADDBE471B1607C30072889B /* ApplicationSpecificViewController.m in Sources */,
+				3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */,
 				3AA396CF1AF8E928002FAE2D /* Room.swift in Sources */,
 				3A402BBF1AFB95E90098D69D /* DecideProtocol.swift in Sources */,
 				3AA396CC1AF8D807002FAE2D /* User.swift in Sources */,

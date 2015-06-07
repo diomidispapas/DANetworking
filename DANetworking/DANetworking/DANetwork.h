@@ -23,8 +23,11 @@ typedef NS_ENUM(NSUInteger, ServiceType) {
 @interface DANetwork : NSObject
 
 @property (nonatomic, assign) ServiceType serviceType;
+
 @property (nonatomic, weak) __nullable id  <DANetworkDelegate> delegate;
+
 @property (nonatomic, strong, nullable, readonly) NSString *userIdentifier;
+
 @property (nonatomic, strong, nullable, readonly) NSMutableArray *participants;
 
 

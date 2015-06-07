@@ -38,39 +38,6 @@ class PubNubInitialViewController: UIViewController {
         self.sendButton.enabled = true
         self.joinNetworkButton.enabled = false
         self.proceedToSampleAppButton.enabled = false
-        
-        
-        /*
-        // Subscribe to PubNub
-        var channels = [PNChannel]()
-        self.channel = PNChannel.channelWithName("demo_tutorial", shouldObservePresence: true) as? PNChannel
-        channels.append(self.channel!)
-        
-        // Make the request
-        PubNubHelper.sharedInstance.subscribe(channels, competionHandler: { (sucess, error) -> Void in
-            if (error != nil) {
-                self.updateActivityLabel(text: PubNubHelper.ErrorMessages.errorSubscribing)
-            }
-            else {
-                self.updateActivityLabel(text: PubNubHelper.ActivityMessages.subscriptionSuccefullyCompleted)
-                self.sendButton.enabled = true
-            }
-        })
-        */
-        
-        /*
-        // Get the pubnub instance
-        self.pubNub = PubNub.sharedInstance()
-        
-        // Add observer
-        self.pubNub?.observationCenter.addMessageReceiveObserver(self, withBlock: { (message:PNMessage!) -> Void in
-            if  (message != nil) {
-                var messageString :String = message.message as! String
-                
-                self.updateActivityLabel(text:"Message received: " + messageString)
-            }
-        })
-        */
     }
     
     deinit {
@@ -90,13 +57,14 @@ class PubNubInitialViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    
     // MARK: Actions
 
     @IBAction func sendButtonPressed(sender: AnyObject) {
         self.username = self.messageTextField.text
         self.joinNetworkButton.enabled = true;
 
-        self.updateActivityLabel(text: "Usename: \(self.username) has been setted")
+        self.updateActivityLabel(text: "Usename: \(self.username!) has been setted")
     }
     
     @IBAction func joinNetworkButtonPressed(sender: AnyObject) {
@@ -111,21 +79,6 @@ class PubNubInitialViewController: UIViewController {
                 
             }
         }
-        
-    
-        /*
-        var message = "JOIN_NETWORK_USERNAME:\(self.username!)"
-        
-        PubNubHelper.sharedInstance.sendMessage(message, channel: self.channel!, completionHandler: { (sucess, error) -> Void in
-            if sucess {
-                self.updateActivityLabel(text: "Initial identification achieved with usename: \(self.username!)")
-                self.proceedToSampleAppButton.enabled = true
-            }
-            else {
-                self.updateActivityLabel(text: PubNubHelper.ErrorMessages.errorSendingMessage)
-            }
-        })
-        */
     }
     
     @IBAction func proceedToSampleAppButtonPressed(sender: AnyObject) {

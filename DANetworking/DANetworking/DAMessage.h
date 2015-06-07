@@ -18,17 +18,18 @@ typedef NS_ENUM(NSUInteger, MessageType) {
 
 @interface DAMessage : NSObject
 
-@property (nonatomic, strong, nonnull, readonly) NSString *messageId;
-@property (nonatomic, strong, nonnull, readonly) NSString *sender;
+@property (nonatomic, copy, nonnull, readonly) NSString *messageId;
+@property (nonatomic, copy, nonnull, readonly) NSString *sender;
 @property (nonatomic, assign, readonly) MessageType type;
-@property (nonatomic, strong, nonnull, readonly) NSString *body;
+@property (nonatomic, copy, nonnull, readonly) NSString *body;
 
 - (nullable instancetype)initWithMessageId:(NSString * __nonnull)messageId
-                           sender:(NSString * __nonnull)sender
-                      messageType:(MessageType)type
-                             body:(NSString * __nonnull)body;
+                                    sender:(NSString * __nonnull)sender
+                               messageType:(MessageType)type
+                                      body:(NSString * __nonnull)body;
 
 - (nullable instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString;
+
 - (NSString * __nonnull)encodeToNSString;
 
 @end
