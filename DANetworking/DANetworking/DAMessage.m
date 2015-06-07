@@ -44,7 +44,6 @@ NSString* const kMessageBody = @"@MessageBody:";
     return self;
 }
 
-
 - (instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString {
     NSString *clearIdentifer = [decodedString stringByReplacingOccurrencesOfString:kMessageIdKey withString:@":"];
     NSString *clearIdentifer2 = [clearIdentifer stringByReplacingOccurrencesOfString:kMessageSender withString:@":"];
@@ -63,6 +62,9 @@ NSString* const kMessageBody = @"@MessageBody:";
     }
     return self;
 }
+
+
+#pragma mark - Encoder
 
 - (NSString *)encodeToNSString {
         NSString *encodedString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",

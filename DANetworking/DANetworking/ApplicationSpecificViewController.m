@@ -20,6 +20,7 @@
 #pragma mark - IBOutlets
 
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *subscribersLabel;
+@property (weak, nonatomic, nonnull) IBOutlet UILabel *subscribersNumberLabel;
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *activityLabel;
 
 @end
@@ -52,9 +53,10 @@
     // Set up my robot
     Robot *myRobot = [[Robot alloc] initWithName:[DANetwork sharedInstance].userIdentifier speed:1.2];
     [[DecideObserver sharedInstance]setMyRobot:myRobot];
-    /*
+    
     // Set up peers
-    for (NSString* participant in [DANetwork sharedInstance]) {
+    /*
+    for (NSString* participant in [DANetwork sharedInstance].) {
         Robot *peer = [[Robot alloc] initWithName:participant speed:0.8];
         [[DecideObserver sharedInstance] addPeer:peer];
     }
@@ -69,6 +71,7 @@
             [subscribers appendFormat:@", %@",peer.name];
         }
         self.subscribersLabel.text = subscribers;
+        self.subscribersNumberLabel.text = [NSString stringWithFormat:@"%d", [DANetwork sharedInstance].participants.count];
     });
 }
 
@@ -93,6 +96,7 @@
 
 - (void)didReceiveJoinEvent {
     [self updateActivityLabelWithText:@"Someone joined your channel"];
+    [self setUpSubscribersLabel];
 }
 
 @end

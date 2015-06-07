@@ -36,6 +36,7 @@
 {
     self = [super init];
     if (self) {
+        self.participants = [NSMutableArray array];
     }
     return self;
 }
@@ -106,6 +107,9 @@
 }
 
 - (void)didReceiveJoinEvent {
+    #warning Complete here and add participants ID.
+    [self.participants addObject:0];
+    
     [self.delegate didReceiveJoinEvent];
 }
 
