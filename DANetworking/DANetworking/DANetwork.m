@@ -65,7 +65,7 @@
                     [self sendJoiningMessageWithCompletionBlock:^(BOOL sucess, NSError *error) {
                         if (success) {
                         #ifdef DEBUG
-                            NSLog(@"DANetwrok: Joining message sent");
+                            NSLog(@"DANetwrok: Joining message sent from user %@", _userIdentifier);
                         #endif
                         completion(YES, nil);
                         }
@@ -83,6 +83,7 @@
         }
     }
 }
+
 
 #pragma mark - Networking Actions
 

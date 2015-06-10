@@ -7,12 +7,13 @@
 //
 
 #import "Robot.h"
+#import "RobotTask.h"
 
 @interface Robot ()
 
 @property (nonatomic, strong, nonnull) NSString *name;
-@property (nonatomic, strong, nonnull) NSMutableArray *tasks;
-@property (nonatomic, strong, nonnull) NSMutableArray *localTasks;
+@property (nonatomic, strong, nonnull) NSMutableArray *globalTasks;
+@property (nonatomic, strong, nullable) RobotTask *localTask;
 @property (nonatomic, assign) double maxSpeed;
 
 @end
@@ -23,31 +24,36 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithName:(NSString *)name
-                       maxSpeed:(double)maxSpeed {
+                    maxSpeed:(double)maxSpeed {
     self = [super init];
     if (self) {
         _name = name;
         _maxSpeed = maxSpeed;
-        _tasks = [NSMutableArray array];
+        _globalTasks = [NSMutableArray array];
     }
     return self;
 }
 
 - (instancetype)initWithName:(NSString *)name
                     maxSpeed:(double)maxSpeed
-                       tasks:(NSMutableArray *)tasks {
+                 globalTasks:(NSMutableArray *)globalTasks {
+    
     if (self = [self initWithName:name maxSpeed:maxSpeed]) {
-        _tasks = tasks;
+        _globalTasks = globalTasks;
     }
     return self;
 }
 
 
 
-#pragma mark - Robot Functionality 
+#pragma mark - Robot Tasks Functionallity
 
-- (void)addTask:(RobotTask *)task {
-    [_tasks addObject:task];
+- (void)addGlobalTask:(RobotTask *)task {
+    [_globalTasks addObject:task];
+}
+
+- (void)setLocalTask:(RobotTask *)task {
+    _localTask = task;
 }
 
 

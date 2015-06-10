@@ -15,11 +15,12 @@
 #import "DAMessage.h"
 #import "DANetwork.h"
 
-@interface DecideObserver () <DecideDelegate>
+@interface DecideObserver () <DecideDelegate, DANetworkDelegate>
 
 @property (nonatomic, strong, nullable) Robot *myRobot;
 @property (nonatomic, strong, nullable) NSMutableArray *robots;
-@property (nonatomic, strong, nonnull) NSMutableArray *tasks;
+@property (nonatomic, assign) ControlLoopState controlLoopState;
+@property (nonatomic, assign, getter = isControlLoopRunning) BOOL controlLoopRunning;
 
 @end
 
@@ -41,7 +42,8 @@
     self = [super init];
     if (self) {
         _robots = [NSMutableArray array];
-        _tasks = [NSMutableArray array];
+        _controlLoopRunning = NO;
+        _controlLoopRunning = ControlLoopStateStopped;
     }
     return self;
 }
@@ -58,12 +60,6 @@
     [_robots addObject:robot];
 }
 
-
-#pragma mark - Tasks
-
-- (void)addTask:(RobotTask *)task {
-    [_tasks addObject:task];
-}
 
 
 #pragma mark - Networking
@@ -93,22 +89,51 @@
 #pragma mark - Decide Actions
 
 - (void)offlineStart {
-    [self localCapabilityAnalysis];
-    [self receiveRemoteNodesCapabilities];
-    [self selectionOfLocalContribution];
-    [self executionOfControlLoop];
     
+    // If the control loop has not started
+    if (![self isControlLoopRunning]) {
+        
+        // Update the flag (getter = isControlLoopRunning)
+        self.controlLoopRunning = YES;
+        
+        // Start the closed control loop
+        [self closedControlLoop];
+    }
+    
+}
+
+- (void)closedControlLoop {
+    while ([self isControlLoopRunning]) {
+
+        switch (_controlLoopState) {
+            case ControlLoopStateStopped:
+                _controlLoopState = ControlLoopStateLocalCapabilityAnalysis;
+                break;
+            case ControlLoopStateLocalCapabilityAnalysis:
+                [self localCapabilityAnalysis];
+                break;
+            case ControlLoopStateContributionReceived:
+                [self receiveRemoteNodesCapabilities];
+                break;
+            case ControlLoopStateContributionSelection:
+                [self selectionOfLocalContribution];
+                break;
+            case ControlLoopStateExecution:
+                [self executionOfControlLoop];
+                break;
+        }
+    }
 }
 
 
 #pragma mark - DecideDelegate
 
 - (void)localCapabilityAnalysis {
-    for (RobotTask *task in _tasks) {
+    for (RobotTask *task in _myRobot.globalTasks) {
         if (task.meters <= (_myRobot.maxSpeed * 10)) { // with the *10 I assume that the task takes 10 secs. So the robot needs speed (m/s) * secs to cover the meters task.
             
             // Assign the first task to me
-            [_myRobot addTask:_tasks[0]];
+            [_myRobot setLocalTask:task];
             
             
             #ifdef DEBUG
@@ -152,6 +177,50 @@
  */
 - (void)majorChange {
     
+}
+
+
+
+#pragma mark - DANetworkDelegate
+
+- (void)didReceiveMessage:(DAMessage * __nonnull)message {
+    #ifdef DEBUG
+        NSString *labelText = [NSString stringWithFormat:@"Message received from: %@ with body: %@",message.sender , message.body];
+        NSLog(@"%@", labelText);
+    #endif
+    [_delegate didReceiveMessage:message];
+}
+
+- (void)didReceiveJoinEvent:(DAMessage * __nonnull)message {
+    #ifdef DEBUG
+        NSString *labelText = [NSString stringWithFormat:@"Someone joined your channel"];
+        NSLog(@"%@", labelText);
+    #endif
+    [_delegate didReceiveJoinEvent:message];
+}
+
+- (void)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message {
+    #ifdef DEBUG
+        NSString *labelText = [NSString stringWithFormat:@"LCA Received from other node"];
+        NSLog(@"%@", labelText);
+    #endif
+    [_delegate didReceiveContributionAnalysisMessageEvent:message];
+}
+
+- (void)didReceiveStatusUpdatesMessageEvent:(DAMessage * __nonnull)message {
+    #ifdef DEBUG
+        NSString *labelText = [NSString stringWithFormat:@"Status update received"];
+        NSLog(@"%@", labelText);
+    #endif
+    [_delegate didReceiveStatusUpdatesMessageEvent:message];
+}
+
+- (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)message {
+    #ifdef DEBUG
+        NSString *labelText = [NSString stringWithFormat:@"Major event message received"];
+        NSLog(@"%@", labelText);
+    #endif
+    [_delegate didReceiveMajorChangeMessageEvent:message];
 }
 
 @end

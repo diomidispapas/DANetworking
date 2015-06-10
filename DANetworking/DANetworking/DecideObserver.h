@@ -9,14 +9,38 @@
 @import Foundation;
 
 @class Robot;
-@class RobotTask;
 @class DAMessage;
 
+
+typedef NS_ENUM(NSUInteger, ControlLoopState) {
+    ControlLoopStateStopped,
+    ControlLoopStateLocalCapabilityAnalysis,
+    ControlLoopStateContributionReceived,
+    ControlLoopStateContributionSelection,
+    ControlLoopStateExecution,
+};
+
+
+@protocol DecideObserverDelegate <NSObject>
+
+- (void)didReceiveMessage:(DAMessage * __nonnull)message;
+- (void)didReceiveJoinEvent:(DAMessage * __nonnull)message;
+- (void)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message;
+- (void)didReceiveStatusUpdatesMessageEvent:(DAMessage * __nonnull)message;
+- (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)message;
+
+@end
+
+/**
+ *  The observer observes the system and handles events
+ */
 @interface DecideObserver : NSObject
 
 @property (nonatomic, strong, nullable, readonly) Robot *myRobot;
 @property (nonatomic, strong, nullable, readonly) NSMutableArray *robots;
-@property (nonatomic, strong, nonnull, readonly) NSMutableArray *tasks;
+@property (nonatomic, assign, readonly) ControlLoopState controlLoopState;
+@property (nonatomic, assign, readonly, getter = isControlLoopRunning) BOOL controlLoopRunning;
+@property (nonatomic, weak, nonnull) id<DecideObserverDelegate> delegate;
 
 + (nullable instancetype)sharedInstance;
 
@@ -24,17 +48,14 @@
 #pragma mark - Robots
 
 - (void)setMyRobot:(Robot * __nonnull)robot;
+
 - (void)addPeer:(Robot * __nonnull)robot;
-
-
-#pragma mark - Tasks
-
-- (void)addTask:(RobotTask * __nonnull)task;
 
 
 #pragma mark - Decide Actions
 
 - (void)sendDummyMessageToPeers;
+
 - (void)offlineStart;
 
 @end

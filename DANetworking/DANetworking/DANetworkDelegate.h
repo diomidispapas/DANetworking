@@ -12,8 +12,11 @@
 
 @protocol DANetworkDelegate <NSObject>
 
-@optional
+@required
 - (void)didReceiveMessage:(DAMessage * __nonnull)message;
 - (void)didReceiveJoinEvent:(DAMessage * __nonnull)message;
+- (void)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message;
+- (void)didReceiveStatusUpdatesMessageEvent:(DAMessage * __nonnull)message;
+- (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)message;
 
 @end

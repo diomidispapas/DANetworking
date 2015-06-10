@@ -105,4 +105,5 @@ NSString* const kMessageBody = @"@MessageBody:";
     
     return ([array indexOfObject:messageTypeInStringFormat]);
 }
+
 @end

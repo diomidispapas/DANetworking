@@ -13,18 +13,22 @@
 @interface Robot : NSObject
 
 @property (nonatomic, strong, nonnull, readonly) NSString *name;
-@property (nonatomic, strong, nonnull, readonly) NSMutableArray *tasks;
+@property (nonatomic, strong, nonnull, readonly) NSMutableArray *globalTasks;
 @property (nonatomic, strong, nonnull, readonly) NSMutableArray *localTasks;
 @property (nonatomic, assign, readonly) double maxSpeed;
 
+
+#pragma mark - Initialization
 
 - (nullable instancetype)initWithName:(NSString * __nonnull)name
                              maxSpeed:(double)maxSpeed;
 
 - (nullable instancetype)initWithName:(NSString * __nonnull)name
                              maxSpeed:(double)maxSpeed
-                                tasks:(NSMutableArray * __nonnull)tasks;
+                          globalTasks:(NSMutableArray * __nonnull)globalTasks;
 
-- (void)addTask:(RobotTask *)task;
+- (void)addGlobalTask:(RobotTask * __nonnull)task;
+
+- (void)setLocalTask:(RobotTask * __nonnull)task;
 
 @end

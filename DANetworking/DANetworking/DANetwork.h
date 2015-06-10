@@ -11,7 +11,6 @@
 #import "DANetworkDelegate.h"
 
 @class DAMessage;
-@class PubNubHelper;
 @class PubNub;
 
 

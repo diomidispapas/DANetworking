@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */; };
 		3A61A31E1B24B28E003917B0 /* RobotTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A31D1B24B28E003917B0 /* RobotTask.m */; };
-		3A61A3221B24BB2D003917B0 /* ApplicationSpecificViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A3211B24BB2D003917B0 /* ApplicationSpecificViewModel.m */; };
+		3A67A4CA1B289FA600C499F0 /* Robot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE4A1B1618090072889B /* Robot.m */; };
 		3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */; };
 		3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */; };
 		3AA3969E1AF8B7AD002FAE2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */; };
@@ -35,7 +35,6 @@
 		3AD9FA5E1AFA9480002DCADC /* MXService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9FA5D1AFA9480002DCADC /* MXService.swift */; };
 		3ADDBE441B13910D0072889B /* MXService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE431B13910D0072889B /* MXService.m */; };
 		3ADDBE471B1607C30072889B /* ApplicationSpecificViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE461B1607C30072889B /* ApplicationSpecificViewController.m */; };
-		3ADDBE4B1B1618090072889B /* Robot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE4A1B1618090072889B /* Robot.m */; };
 		3ADDBE4E1B1630360072889B /* DecideObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE4D1B1630360072889B /* DecideObserver.m */; };
 		3ADDBE541B1636FE0072889B /* DANetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE531B1636FE0072889B /* DANetwork.m */; };
 		3ADDBE571B163B700072889B /* DAMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE561B163B700072889B /* DAMessage.m */; };
@@ -58,8 +57,6 @@
 		3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DANetwork+Messages.m"; sourceTree = "<group>"; };
 		3A61A31C1B24B28E003917B0 /* RobotTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobotTask.h; sourceTree = "<group>"; };
 		3A61A31D1B24B28E003917B0 /* RobotTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RobotTask.m; sourceTree = "<group>"; };
-		3A61A3201B24BB2D003917B0 /* ApplicationSpecificViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationSpecificViewModel.h; sourceTree = "<group>"; };
-		3A61A3211B24BB2D003917B0 /* ApplicationSpecificViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationSpecificViewModel.m; sourceTree = "<group>"; };
 		3A61A3231B24C0FB003917B0 /* DecideDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecideDelegate.h; sourceTree = "<group>"; };
 		3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubHelper.swift; sourceTree = "<group>"; };
 		3A8D13821B0266C3000583C1 /* PubNubInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubInitialViewController.swift; sourceTree = "<group>"; };
@@ -169,7 +166,6 @@
 		3A61A3151B249D37003917B0 /* Message Sending Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3A61A31F1B24BB15003917B0 /* View Model */,
 				3ADDBE451B1607C30072889B /* ApplicationSpecificViewController.h */,
 				3ADDBE461B1607C30072889B /* ApplicationSpecificViewController.m */,
 			);
@@ -189,15 +185,6 @@
 				3AA3969D1AF8B7AD002FAE2D /* AppDelegate.swift */,
 			);
 			name = "App Delegate";
-			sourceTree = "<group>";
-		};
-		3A61A31F1B24BB15003917B0 /* View Model */ = {
-			isa = PBXGroup;
-			children = (
-				3A61A3201B24BB2D003917B0 /* ApplicationSpecificViewModel.h */,
-				3A61A3211B24BB2D003917B0 /* ApplicationSpecificViewModel.m */,
-			);
-			name = "View Model";
 			sourceTree = "<group>";
 		};
 		3A8D13801B02667B000583C1 /* Matrix Service (NSURLSession) */ = {
@@ -575,6 +562,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A67A4CA1B289FA600C499F0 /* Robot.m in Sources */,
 				3AD9FA5E1AFA9480002DCADC /* MXService.swift in Sources */,
 				3ADDBE571B163B700072889B /* DAMessage.m in Sources */,
 				3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */,
@@ -583,7 +571,6 @@
 				3AA396C31AF8BEF9002FAE2D /* ServiceConvenience.swift in Sources */,
 				3A61A31E1B24B28E003917B0 /* RobotTask.m in Sources */,
 				3AA396DF1AF92E43002FAE2D /* RoomViewController.swift in Sources */,
-				3ADDBE4B1B1618090072889B /* Robot.m in Sources */,
 				3A8D13831B0266C3000583C1 /* PubNubInitialViewController.swift in Sources */,
 				3ADDBE471B1607C30072889B /* ApplicationSpecificViewController.m in Sources */,
 				3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */,
@@ -595,7 +582,6 @@
 				3AA396BF1AF8B8AA002FAE2D /* Service.swift in Sources */,
 				3ADDBE541B1636FE0072889B /* DANetwork.m in Sources */,
 				3AA396DD1AF923C4002FAE2D /* UIViewControllerTransitions.swift in Sources */,
-				3A61A3221B24BB2D003917B0 /* ApplicationSpecificViewModel.m in Sources */,
 				3AA396C11AF8B8E4002FAE2D /* ServiceConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
