@@ -11,16 +11,22 @@
 @interface RobotTask ()
 
 @property (nonatomic, assign) NSInteger meters;
+@property (nonatomic, assign) NSInteger time;
+@property (nonatomic, assign) NSInteger powerConsumtion;
 
 @end
 
 @implementation RobotTask
 
-- (instancetype)initWithMeters:(NSInteger)meters {
+- (instancetype)initWithMeters:(NSInteger)meters
+                          time:(NSInteger)time
+               powerConsumtion:(NSInteger)powerConsumtion {
     
     self = [super init];
     if (self) {
         _meters = meters;
+        _time = time;
+        _powerConsumtion = powerConsumtion;
     }
     return self;
 }

@@ -11,7 +11,15 @@
 @interface RobotTask : NSObject
 
 @property (nonatomic, assign, readonly) NSInteger meters;
+@property (nonatomic, assign, readonly) NSInteger time;
+@property (nonatomic, assign, readonly) NSInteger powerConsumtion;
 
-- (instancetype)initWithMeters:(NSInteger)meters;
+
+
+#pragma mark - Initialization
+
+- (instancetype)initWithMeters:(NSInteger)meters
+                          time:(NSInteger)time
+               powerConsumtion:(NSInteger)powerConsumtion;
 
 @end

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MessageType) {
     MessageTypeMajorChangeMessage,
 };
 
-@interface DAMessage : NSObject
+@interface DAMessage : NSObject <NSCoding>
 
 @property (nonatomic, copy, nonnull, readonly) NSString *messageId;
 @property (nonatomic, copy, nonnull, readonly) NSString *sender;
@@ -28,8 +28,11 @@ typedef NS_ENUM(NSUInteger, MessageType) {
                                messageType:(MessageType)type
                                       body:(NSString * __nonnull)body;
 
-- (nullable instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString;
+//- (nullable instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString;
 
-- (NSString * __nonnull)encodeToNSString;
+//- (NSString * __nonnull)encodeToNSString;
 
+- (NSString *)archivedMessageToData:(DAMessage *)message;
+
+- (instancetype)convertDataToMessageObject:(NSString *)dataString;
 @end

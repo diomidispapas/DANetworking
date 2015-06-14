@@ -26,6 +26,15 @@
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *activityLabel;
 
 
+@property (weak, nonatomic) IBOutlet UIButton *sendDummyMessageButton;
+@property (weak, nonatomic) IBOutlet UIButton *startDecideButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *speedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *powerConsumptionLabel;
+
+@property (weak, nonatomic) IBOutlet UISlider *speedSlider;
+@property (weak, nonatomic) IBOutlet UISlider *powerConsumtionSlider;
+
 @end
 
 @implementation ApplicationSpecificViewController
@@ -38,13 +47,12 @@
     // I delegate the event from the
     [DecideObserver sharedInstance].delegate = self;
     
+    // Create environment
+    [self createGlobalTask];
+    
+    // Deprecated
     // Create dummy environment
-    [self createDummyRobots];
-    [self createDummyTasks];
-
-    // Start the process
-    [[DecideObserver sharedInstance] offlineStart];
-
+    //[self createDummyRobots];
     
     // Networking initial String
     NSString *initialActivityLabelMessage = [NSString stringWithFormat:@"%@ is connected to the channel",[DANetwork sharedInstance].userIdentifier];
@@ -68,29 +76,27 @@
 
 #pragma mark - Dummy
 
+// Deprecated
 - (void)createDummyRobots {
-    Robot *robot1 = [[Robot alloc] initWithName:@"Robot1" maxSpeed:1];
+    
+    Robot *robot1 = [[Robot alloc] initWithName:@"Robot1" maxSpeed:5 powerConsumtionPerSec:1] ;
     [[DecideObserver sharedInstance] setMyRobot:robot1];
 
     
-    Robot *robot2 = [[Robot alloc] initWithName:@"Robot2" maxSpeed:0.6];
+    Robot *robot2 = [[Robot alloc] initWithName:@"Robot2" maxSpeed:1 powerConsumtionPerSec:2];
     [[DecideObserver sharedInstance] addPeer:robot2];
 
     
-    Robot *robot3 = [[Robot alloc] initWithName:@"Robot3" maxSpeed:0.3];
+    Robot *robot3 = [[Robot alloc] initWithName:@"Robot3" maxSpeed:0.3 powerConsumtionPerSec:3];
     [[DecideObserver sharedInstance] addPeer:robot3];
 
 }
 
-- (void)createDummyTasks {
-    RobotTask *task1 = [[RobotTask alloc] initWithMeters:10];
-    [[[DecideObserver sharedInstance] myRobot] addGlobalTask:task1];
+- (void)createGlobalTask {
     
-    RobotTask *task2 = [[RobotTask alloc] initWithMeters:15];
-    [[[DecideObserver sharedInstance] myRobot] addGlobalTask:task2];
-    
-    RobotTask *task3 = [[RobotTask alloc] initWithMeters:8];
-    [[[DecideObserver sharedInstance] myRobot] addGlobalTask:task3];
+    // Create a global task that will be divided into the components.
+    RobotTask *globalTask = [[RobotTask alloc] initWithMeters:100 time:50 powerConsumtion:20];
+    [[[DecideObserver sharedInstance] myRobot] addGlobalTask:globalTask];
     
 }
 
@@ -100,6 +106,27 @@
 - (IBAction)sendMessageTypeUnknownButtonPressed:(id)sender {
     [[DecideObserver sharedInstance] sendDummyMessageToPeers];
 }
+
+- (IBAction)speedSliderValueChanged:(UISlider *)sender {
+    _speedLabel.text = [NSString stringWithFormat:@"%.02g", sender.value];
+}
+
+- (IBAction)powerConsumptionValueChanged:(UISlider *)sender {
+    _powerConsumptionLabel.text = [NSString stringWithFormat:@"%.02g", sender.value];
+}
+
+- (IBAction)startDecideButtonPressed:(id)sender {
+    // Create the robot instance
+    Robot *myRobot = [[Robot alloc] initWithName:@"Robot1" maxSpeed:[_speedLabel.text doubleValue] powerConsumtionPerSec:[_powerConsumptionLabel.text doubleValue]];
+    
+    // Set this as my robot to the observer
+    [[DecideObserver sharedInstance] setMyRobot:myRobot];
+    
+    // Start the process
+    [[DecideObserver sharedInstance] start];
+}
+
+
 
 
 #pragma mark - DecideObserverDelegate

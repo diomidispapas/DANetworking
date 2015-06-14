@@ -69,6 +69,21 @@
     [self sendMessageToPeers:message];
 }
 
+- (void)sendCLAMessageToPeersWithBody:(NSString *)body {
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"CLAMessage" sender:self.myRobot.name messageType:MessageTypeContributionAnalysisMessage body:body];
+    [self sendMessageToPeers:message];
+}
+
+- (void)sendUpdateMessageToPeers {
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"UpdateMessage" sender:self.myRobot.name messageType:MessageTypeStatusUpdateMessage body:@"Hello guys"];
+    [self sendMessageToPeers:message];
+}
+
+- (void)sendChangeMessageToPeers {
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"ChangeMessage" sender:self.myRobot.name messageType:MessageTypeMajorChangeMessage body:@"Hello guys"];
+    [self sendMessageToPeers:message];
+}
+
 
 #pragma mark - Private methods
 
@@ -88,7 +103,7 @@
 
 #pragma mark - Decide Actions
 
-- (void)offlineStart {
+- (void)start {
     
     // If the control loop has not started
     if (![self isControlLoopRunning]) {
@@ -96,11 +111,19 @@
         // Update the flag (getter = isControlLoopRunning)
         self.controlLoopRunning = YES;
         
-        // Start the closed control loop
-        [self closedControlLoop];
+        // Start the closed control loop on a different thread
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+            [self closedControlLoop];
+
+        });
+
     }
     
 }
+
+
+#pragma mark - Decide Control Loop
 
 - (void)closedControlLoop {
     while ([self isControlLoopRunning]) {
@@ -111,6 +134,8 @@
                 break;
             case ControlLoopStateLocalCapabilityAnalysis:
                 [self localCapabilityAnalysis];
+                break;
+            case ControlLoopStateWaitingForPeers:
                 break;
             case ControlLoopStateContributionReceived:
                 [self receiveRemoteNodesCapabilities];
@@ -129,19 +154,31 @@
 #pragma mark - DecideDelegate
 
 - (void)localCapabilityAnalysis {
-    for (RobotTask *task in _myRobot.globalTasks) {
-        if (task.meters <= (_myRobot.maxSpeed * 10)) { // with the *10 I assume that the task takes 10 secs. So the robot needs speed (m/s) * secs to cover the meters task.
-            
-            // Assign the first task to me
-            [_myRobot setLocalTask:task];
-            
-            
-            #ifdef DEBUG
-                NSLog(@"DECIDE: My task is task with meters %ld" ,(long)task.meters);
-            #endif
-            continue;
-        }
+    
+    /**
+     *  For each speed until we reach our mac speed calculate the possible combination.
+     */
+    for (double i = 0; i <= _myRobot.maxSpeed; i++) {
+        
+        // Create a possible task
+        RobotTask *possibleTask = [[RobotTask alloc] initWithMeters:i time:1 powerConsumtion:(_myRobot.powerConsumtionPerSec * i)];
+        
+        // Add the combination to the possible combinations
+        
+        [_myRobot addLocalContributioPossibleCombinationsObject:possibleTask];
+        
+        #ifdef DEBUG
+            NSLog(@"Possible task: %ldm, %lds, %ldJ" ,(long)possibleTask.meters, (long)possibleTask.time, ((long)possibleTask.powerConsumtion * (long)possibleTask.meters));
+        #endif
     }
+    
+    
+    
+    _controlLoopState = ControlLoopStateWaitingForPeers;
+    #ifdef DEBUG
+        NSLog(@"Waiting for peers");
+    #endif
+    
 }
 
 /**
@@ -149,27 +186,37 @@
  */
 - (void)receiveRemoteNodesCapabilities {
     
+    dispatch_async( dispatch_get_main_queue(), ^{
     #ifdef DEBUG
-        NSLog(@"DECIDE: Received peer's capabilities");
+            NSLog(@"DECIDE: Received peer's capabilities");
     #endif
+    });
+   
 }
 
 /**
  * This stage is executed infrequently (e.g., when the component joins the system)
  */
 - (void)selectionOfLocalContribution {
+    
+    dispatch_async( dispatch_get_main_queue(), ^{
     #ifdef DEBUG
         NSLog(@"DECIDE: Selection of local contribution");
     #endif
+    });
+
 }
 
 /**
  * Most of the time, the execution of a local control loop is the only DECIDE stage carried out by a component.
  */
 - (void)executionOfControlLoop {
+    dispatch_async( dispatch_get_main_queue(), ^{
     #ifdef DEBUG
         NSLog(@"DECIDE: Execution of control loop");
     #endif
+    });
+    
 }
 
 /**

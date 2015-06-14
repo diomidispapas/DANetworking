@@ -36,8 +36,7 @@
     return _sharedInstance;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.participants = [NSMutableArray array];
@@ -92,7 +91,10 @@
     
     switch (_serviceType) {
         case ServiceTypePubNubService: {
-            NSString *encodedMessage = [message encodeToNSString];
+            //NSString *encodedMessage = [message encodeToNSString];
+           
+            NSString *encodedMessage = [message archivedMessageToData:message];
+            
             [[PubNubHelper sharedInstance] sendMessage:encodedMessage channel:self.channel completionHandler:^(BOOL success, PNError *error) {
                 if (success) {
                     completion(YES, nil);
@@ -114,7 +116,12 @@
 #pragma mark - <PubNubHelperDelegate>
 
 - (void)didReceiveMessage:(PNMessage *)message {
-    DAMessage *da_message = [[DAMessage alloc] initWithDecodedNSString:(NSString *)message.message];
+    DAMessage *da_message = [DAMessage alloc];
+    
+    da_message = [da_message convertDataToMessageObject:message.message];
+
+
+    
     if (![da_message.sender isEqualToString:self.userIdentifier]) {
         
         switch (da_message.type) {

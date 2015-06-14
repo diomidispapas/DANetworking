@@ -17,7 +17,7 @@
     switch (self.serviceType) {
         case ServiceTypePubNubService: {
             
-            DAMessage *joiningMessage = [[DAMessage alloc] initWithMessageId:@"1" sender:self.userIdentifier messageType:MessageTypeJoiningMessage body:@"Joining message"];
+            DAMessage *joiningMessage = [[DAMessage alloc] initWithMessageId:@"1A" sender:self.userIdentifier messageType:MessageTypeJoiningMessage body:@"Joining message"];
             
             [self sendMessage:joiningMessage completionBlock:^(BOOL success, NSError * __nullable error) {
                 if (error) {
