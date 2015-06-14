@@ -8,6 +8,7 @@
 
 #import "DecideObserver.h"
 #import "DecideDelegate.h"
+#import "DecideObserver+NetworkSend.h"
 
 #import "Robot.h"
 #import "RobotTask.h"
@@ -20,7 +21,10 @@
 @property (nonatomic, strong, nullable) Robot *myRobot;
 @property (nonatomic, strong, nullable) NSMutableArray *robots;
 @property (nonatomic, assign) ControlLoopState controlLoopState;
+
 @property (nonatomic, assign, getter = isControlLoopRunning) BOOL controlLoopRunning;
+@property (nonatomic, assign, getter = islocalCapabilityAnalysisReady) BOOL localCapabilityAnalysisReady;
+
 
 @end
 
@@ -44,6 +48,8 @@
         _robots = [NSMutableArray array];
         _controlLoopRunning = NO;
         _controlLoopRunning = ControlLoopStateStopped;
+        
+        [DANetwork sharedInstance].delegate = self;
     }
     return self;
 }
@@ -58,46 +64,6 @@
 
 - (void)addPeer:( Robot * __nonnull )robot {
     [_robots addObject:robot];
-}
-
-
-
-#pragma mark - Networking
-
-- (void)sendDummyMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"DummyMessage" sender:self.myRobot.name messageType:MessageTypeUnknown body:@"Hello guys"];
-    [self sendMessageToPeers:message];
-}
-
-- (void)sendCLAMessageToPeersWithBody:(NSString *)body {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"CLAMessage" sender:self.myRobot.name messageType:MessageTypeContributionAnalysisMessage body:body];
-    [self sendMessageToPeers:message];
-}
-
-- (void)sendUpdateMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"UpdateMessage" sender:self.myRobot.name messageType:MessageTypeStatusUpdateMessage body:@"Hello guys"];
-    [self sendMessageToPeers:message];
-}
-
-- (void)sendChangeMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"ChangeMessage" sender:self.myRobot.name messageType:MessageTypeMajorChangeMessage body:@"Hello guys"];
-    [self sendMessageToPeers:message];
-}
-
-
-#pragma mark - Private methods
-
-- (void)sendMessageToPeers:(DAMessage * __nonnull)message {
-    [[DANetwork sharedInstance] sendMessage:message completionBlock:^(BOOL success, NSError * __nullable error) {
-        if (error) {
-            
-        }
-        
-        if (success) {
-
-        }
-        
-    }];
 }
 
 
@@ -132,14 +98,35 @@
             case ControlLoopStateStopped:
                 _controlLoopState = ControlLoopStateLocalCapabilityAnalysis;
                 break;
-            case ControlLoopStateLocalCapabilityAnalysis:
+            case ControlLoopStateLocalCapabilityAnalysis: {
+                _localCapabilityAnalysisReady = NO;
                 [self localCapabilityAnalysis];
                 break;
-            case ControlLoopStateWaitingForPeers:
+            }
+            case ControlLoopStateWaitingForPeers: {
+                #ifdef DEBUG
+                    NSLog(@"Waiting for peers");
+                #endif
                 break;
-            case ControlLoopStateContributionReceived:
-                [self receiveRemoteNodesCapabilities];
+            }
+            case ControlLoopStatePeerJoined: {
+                // Whenever someone joins the room send my capability analysis
+                [self sendLocalCapabilityAnalysisToPeers];
                 break;
+            }
+            case ControlLoopStateContributionReceived: {
+                if (self.localCapabilityAnalysisReady) {
+                    _controlLoopState = ControlLoopStateContributionSelection;
+                    //[self receiveRemoteNodesCapabilities];
+                    
+                }
+                /*
+                else {
+                    _controlLoopState = ControlLoopStateLocalCapabilityAnalysis;
+                }
+                 */
+                break;
+            }
             case ControlLoopStateContributionSelection:
                 [self selectionOfLocalContribution];
                 break;
@@ -155,9 +142,8 @@
 
 - (void)localCapabilityAnalysis {
     
-    /**
-     *  For each speed until we reach our mac speed calculate the possible combination.
-     */
+    /// For each speed until we reach our mac speed calculate the possible combination.
+    
     for (double i = 0; i <= _myRobot.maxSpeed; i++) {
         
         // Create a possible task
@@ -172,13 +158,21 @@
         #endif
     }
     
+    [self sendLocalCapabilityAnalysisToPeers];
     
+}
+
+- (void)sendLocalCapabilityAnalysisToPeers {
+    [self sendCLAMessageToPeersWithBody:_myRobot.localContributioPossibleCombinations];
     
-    _controlLoopState = ControlLoopStateWaitingForPeers;
-    #ifdef DEBUG
-        NSLog(@"Waiting for peers");
-    #endif
-    
+    _localCapabilityAnalysisReady = YES;
+    if (_robots.count == 0) {
+        _controlLoopState = ControlLoopStateWaitingForPeers;
+    } else {
+        _controlLoopState = ControlLoopStateContributionSelection;
+    }
+
+
 }
 
 /**
@@ -243,6 +237,9 @@
         NSString *labelText = [NSString stringWithFormat:@"Someone joined your channel"];
         NSLog(@"%@", labelText);
     #endif
+    
+    _controlLoopState = ControlLoopStatePeerJoined;
+    
     [_delegate didReceiveJoinEvent:message];
 }
 
@@ -251,7 +248,14 @@
         NSString *labelText = [NSString stringWithFormat:@"LCA Received from other node"];
         NSLog(@"%@", labelText);
     #endif
-    [_delegate didReceiveContributionAnalysisMessageEvent:message];
+    
+    
+    if (![_robots containsObject:message.sender]) {
+        [_robots addObject:message.sender];
+        _controlLoopState = ControlLoopStateContributionReceived;
+        [_delegate didReceiveContributionAnalysisMessageEvent:message];
+    }
+    
 }
 
 - (void)didReceiveStatusUpdatesMessageEvent:(DAMessage * __nonnull)message {

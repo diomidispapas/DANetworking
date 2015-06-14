@@ -52,7 +52,7 @@
     
     // Deprecated
     // Create dummy environment
-    //[self createDummyRobots];
+    // [self createDummyRobots];
     
     // Networking initial String
     NSString *initialActivityLabelMessage = [NSString stringWithFormat:@"%@ is connected to the channel",[DANetwork sharedInstance].userIdentifier];
@@ -104,7 +104,8 @@
 #pragma mark - Actions
 
 - (IBAction)sendMessageTypeUnknownButtonPressed:(id)sender {
-    [[DecideObserver sharedInstance] sendDummyMessageToPeers];
+    // Deprecated
+    //[[DecideObserver sharedInstance] sendDummyMessageToPeers];
 }
 
 - (IBAction)speedSliderValueChanged:(UISlider *)sender {
@@ -116,8 +117,9 @@
 }
 
 - (IBAction)startDecideButtonPressed:(id)sender {
+    
     // Create the robot instance
-    Robot *myRobot = [[Robot alloc] initWithName:@"Robot1" maxSpeed:[_speedLabel.text doubleValue] powerConsumtionPerSec:[_powerConsumptionLabel.text doubleValue]];
+    Robot *myRobot = [[Robot alloc] initWithName:[DANetwork sharedInstance].userIdentifier maxSpeed:[_speedLabel.text doubleValue] powerConsumtionPerSec:[_powerConsumptionLabel.text doubleValue]];
     
     // Set this as my robot to the observer
     [[DecideObserver sharedInstance] setMyRobot:myRobot];
@@ -146,7 +148,8 @@
 }
 
 - (void)didReceiveStatusUpdatesMessageEvent:(DAMessage * __nonnull)message {
-    
+    NSLog(@"DAMessage: %@", (NSArray *)message.body);
+
 }
 
 - (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)message {

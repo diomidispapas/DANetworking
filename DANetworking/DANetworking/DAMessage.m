@@ -13,7 +13,7 @@ static NSString* const kMessageIdKey = @"MessageId";
 static NSString* const kMessageSender = @"MessageSender";
 static NSString* const kMessageType = @"MessageType";
 static NSString* const kMessageBody = @"MessageBody";
-
+static NSString* const kMessageLCABody = @"MessageLCABody";
 
 
 @interface DAMessage ()
@@ -42,6 +42,8 @@ static NSString* const kMessageBody = @"MessageBody";
         self.sender = sender;
         self.type = type;
         self.body = body;
+        
+        self.lcaBody = [NSArray array];
     }
     return self;
 }
@@ -80,7 +82,9 @@ static NSString* const kMessageBody = @"MessageBody";
     [aCoder encodeObject:self.messageId forKey:kMessageIdKey];
     [aCoder encodeObject:self.sender forKey:kMessageSender];
     [aCoder encodeInteger:self.type forKey:kMessageType];
-    [aCoder encodeObject:self.body forKey:kMessageBody];
+    [aCoder encodeConditionalObject:self.body forKey:kMessageBody];
+    
+    [aCoder encodeObject:self.lcaBody forKey:kMessageLCABody];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -91,11 +95,13 @@ static NSString* const kMessageBody = @"MessageBody";
         self.sender = [aDecoder decodeObjectForKey:kMessageSender];
         self.type = [aDecoder decodeIntegerForKey:kMessageType];
         self.body = [aDecoder decodeObjectForKey:kMessageBody];
+        
+        self.lcaBody = [aDecoder decodeObjectForKey:kMessageLCABody];
     }
     return self;
 }
 
-
+// DEPRECATED 14.6
 /*
 - (instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString {
     NSString *clearIdentifer = [decodedString stringByReplacingOccurrencesOfString:kMessageIdKey withString:@":"];

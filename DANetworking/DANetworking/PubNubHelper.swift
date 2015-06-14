@@ -46,7 +46,7 @@ class PubNubHelper: NSObject, PNDelegate {
         })
     }
     
-    func sendMessage(message: NSData, channel: PNChannel, completionHandler: (sucess: Bool, error: PNError?) -> Void) {
+    func sendMessage(message: String, channel: PNChannel, completionHandler: (sucess: Bool, error: PNError?) -> Void) {
         
         PubNub.sendMessage(message, toChannel: channel) { (state: PNMessageState, data: AnyObject!) -> Void in
             switch (state.rawValue) {

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RobotTask : NSObject
+@interface RobotTask : NSObject <NSCoding>
 
 @property (nonatomic, assign, readonly) NSInteger meters;
 @property (nonatomic, assign, readonly) NSInteger time;

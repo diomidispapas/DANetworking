@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
     ControlLoopStateStopped,
     ControlLoopStateLocalCapabilityAnalysis,
     ControlLoopStateWaitingForPeers,
+    ControlLoopStatePeerJoined,
     ControlLoopStateContributionReceived,
     ControlLoopStateContributionSelection,
     ControlLoopStateExecution,
@@ -54,8 +55,6 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
 
 
 #pragma mark - Decide Actions
-
-- (void)sendDummyMessageToPeers;
 
 - (void)start;
 

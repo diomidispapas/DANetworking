@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A41D3001B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A41D2FF1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m */; };
 		3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */; };
 		3A61A31E1B24B28E003917B0 /* RobotTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A31D1B24B28E003917B0 /* RobotTask.m */; };
 		3A67A4CA1B289FA600C499F0 /* Robot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE4A1B1618090072889B /* Robot.m */; };
@@ -53,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A41D2FE1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DecideObserver+NetworkSend.h"; sourceTree = "<group>"; };
+		3A41D2FF1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DecideObserver+NetworkSend.m"; sourceTree = "<group>"; };
 		3A61A3181B24AA14003917B0 /* DANetwork+Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DANetwork+Messages.h"; sourceTree = "<group>"; };
 		3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DANetwork+Messages.m"; sourceTree = "<group>"; };
 		3A61A31C1B24B28E003917B0 /* RobotTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobotTask.h; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 				3A61A31D1B24B28E003917B0 /* RobotTask.m */,
 				3ADDBE4C1B1630360072889B /* DecideObserver.h */,
 				3ADDBE4D1B1630360072889B /* DecideObserver.m */,
+				3A41D2FE1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.h */,
+				3A41D2FF1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m */,
 			);
 			name = "Application Specific (Example)";
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 				TargetAttributes = {
 					3AA396971AF8B7AD002FAE2D = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = X9N8NHDQNY;
 					};
 					3AA396AC1AF8B7AD002FAE2D = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -580,6 +586,7 @@
 				3ADDBE441B13910D0072889B /* MXService.m in Sources */,
 				3ADDBE4E1B1630360072889B /* DecideObserver.m in Sources */,
 				3AA396BF1AF8B8AA002FAE2D /* Service.swift in Sources */,
+				3A41D3001B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m in Sources */,
 				3ADDBE541B1636FE0072889B /* DANetwork.m in Sources */,
 				3AA396DD1AF923C4002FAE2D /* UIViewControllerTransitions.swift in Sources */,
 				3AA396C11AF8B8E4002FAE2D /* ServiceConstants.swift in Sources */,
@@ -719,6 +726,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = DANetworking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -733,6 +741,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = DANetworking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

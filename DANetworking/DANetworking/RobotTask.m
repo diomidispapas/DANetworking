@@ -8,6 +8,11 @@
 
 #import "RobotTask.h"
 
+
+static NSString* const kRobotTaskMetersKey = @"kRobotTaskMeters";
+static NSString* const kRobotTaskTimeKey = @"kRobotTaskTime";
+static NSString* const KRobotTaskPowerConsumtionKey = @"KRobotTaskPowerConsumtion";
+
 @interface RobotTask ()
 
 @property (nonatomic, assign) NSInteger meters;
@@ -30,5 +35,24 @@
     }
     return self;
 }
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _meters = [aDecoder decodeIntegerForKey:kRobotTaskMetersKey];
+        _time = [aDecoder decodeIntegerForKey:kRobotTaskTimeKey];
+        _powerConsumtion = [aDecoder decodeIntegerForKey:KRobotTaskPowerConsumtionKey];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeInteger:_meters forKey:kRobotTaskMetersKey];
+    [aCoder encodeInteger:_time forKey:kRobotTaskTimeKey];
+    [aCoder encodeInteger:_powerConsumtion forKey:KRobotTaskPowerConsumtionKey];
+}
+
+
 
 @end

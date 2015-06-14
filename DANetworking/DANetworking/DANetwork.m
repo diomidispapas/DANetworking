@@ -117,13 +117,9 @@
 
 - (void)didReceiveMessage:(PNMessage *)message {
     DAMessage *da_message = [DAMessage alloc];
-    
     da_message = [da_message convertDataToMessageObject:message.message];
 
-
-    
     if (![da_message.sender isEqualToString:self.userIdentifier]) {
-        
         switch (da_message.type) {
             case MessageTypeUnknown:
                 [self.delegate didReceiveMessage:da_message];
@@ -132,6 +128,7 @@
                 [self.delegate didReceiveJoinEvent:da_message];
                 break;
             case MessageTypeContributionAnalysisMessage:
+                [self.delegate didReceiveContributionAnalysisMessageEvent:da_message];
                 break;
             case MessageTypeStatusUpdateMessage:
                 break;
