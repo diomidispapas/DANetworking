@@ -61,6 +61,9 @@
                     [PubNubHelper sharedInstance].delegate = self;
                     
                     // Send message joining message to others
+                    // Join event went together with the LCA
+                    
+                    /*
                     [self sendJoiningMessageWithCompletionBlock:^(BOOL sucess, NSError *error) {
                         if (success) {
                         #ifdef DEBUG
@@ -69,6 +72,9 @@
                         completion(YES, nil);
                         }
                     }];
+                    */
+                    completion(YES, nil);
+
                     
                 } else {
                     completion(NO, [NSError errorWithDomain:error.domain code:error.code userInfo:nil]);

@@ -54,7 +54,7 @@ static NSString* const kMessageLCABody = @"MessageLCABody";
     
     NSString *base64Encoded = [data base64EncodedStringWithOptions:0];
     
-    NSLog(@"Encoded: %@", base64Encoded);
+    //NSLog(@"Encoded: %@", base64Encoded);
 
     return base64Encoded;
     

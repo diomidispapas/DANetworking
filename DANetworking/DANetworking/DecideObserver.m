@@ -100,31 +100,52 @@
                 break;
             case ControlLoopStateLocalCapabilityAnalysis: {
                 _localCapabilityAnalysisReady = NO;
+                
                 [self localCapabilityAnalysis];
+                
+                [self sendLocalCapabilityAnalysisToPeers];
+                
+                _localCapabilityAnalysisReady = YES;
+
+                if (_robots.count == 0) {
+                    _controlLoopState = ControlLoopStateWaitingForPeers;
+                } else {
+                    _controlLoopState = ControlLoopStateContributionSelection;
+                }
                 break;
             }
             case ControlLoopStateWaitingForPeers: {
                 #ifdef DEBUG
-                    NSLog(@"Waiting for peers");
+                    //NSLog(@"Waiting for peers");
                 #endif
                 break;
             }
             case ControlLoopStatePeerJoined: {
                 // Whenever someone joins the room send my capability analysis
                 [self sendLocalCapabilityAnalysisToPeers];
+                
+                _localCapabilityAnalysisReady = YES;
+                if (_robots.count == 0) {
+                    _controlLoopState = ControlLoopStateWaitingForPeers;
+                } else {
+                    _controlLoopState = ControlLoopStateContributionSelection;
+                }
+
                 break;
             }
             case ControlLoopStateContributionReceived: {
+                
                 if (self.localCapabilityAnalysisReady) {
+                    
+                    // Whenever someone joins the room send my capability analysis
+                    [self sendLocalCapabilityAnalysisToPeers];
+                    
                     _controlLoopState = ControlLoopStateContributionSelection;
                     //[self receiveRemoteNodesCapabilities];
-                    
                 }
-                /*
                 else {
                     _controlLoopState = ControlLoopStateLocalCapabilityAnalysis;
                 }
-                 */
                 break;
             }
             case ControlLoopStateContributionSelection:
@@ -158,21 +179,11 @@
         #endif
     }
     
-    [self sendLocalCapabilityAnalysisToPeers];
     
 }
 
 - (void)sendLocalCapabilityAnalysisToPeers {
     [self sendCLAMessageToPeersWithBody:_myRobot.localContributioPossibleCombinations];
-    
-    _localCapabilityAnalysisReady = YES;
-    if (_robots.count == 0) {
-        _controlLoopState = ControlLoopStateWaitingForPeers;
-    } else {
-        _controlLoopState = ControlLoopStateContributionSelection;
-    }
-
-
 }
 
 /**

@@ -31,7 +31,7 @@
 - (nullable instancetype)initWithName:(NSString * __nonnull)name
                     maxSpeed:(double)maxSpeed
        powerConsumtionPerSec:(double)powerConsumtionPerSec
-                          globalTasks:(NSMutableArray *)globalTasks;
+                 globalTasks:(NSMutableArray * __nonnull)globalTasks;
 
 
 #pragma mark - Setters
