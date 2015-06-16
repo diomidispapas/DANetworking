@@ -42,5 +42,6 @@
 
 - (void)addLocalContributioPossibleCombinationsObject:(RobotTask * __nonnull)task;
 
+- (void)setLocalContributioPossibleCombinations:(NSArray * __nonnull)combinations;
 
 @end

@@ -69,6 +69,10 @@
     [_localContributioPossibleCombinations addObject:task];
 }
 
+- (void)setLocalContributioPossibleCombinations:(NSArray *)combinations {
+    _localContributioPossibleCombinations = [combinations mutableCopy];
+}
+
 
 
 - (void)statusCheck {

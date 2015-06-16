@@ -208,6 +208,32 @@
     #ifdef DEBUG
         NSLog(@"DECIDE: Selection of local contribution");
     #endif
+        
+        NSMutableArray *combinations = [NSMutableArray array];
+        
+        for (RobotTask *myCandidateCombinationTask in _myRobot.localContributioPossibleCombinations) {
+            for (Robot *peer in _robots) {
+                for (RobotTask *peersCandidateCombinationTask in peer.localContributioPossibleCombinations) {
+                    
+                    NSArray *aCombination = [NSArray arrayWithObjects:myCandidateCombinationTask, peersCandidateCombinationTask, nil];
+                    
+                    [combinations addObject:aCombination];
+                }
+            }
+        }
+        
+        NSLog(@"Final Combinations");
+        int count = 0;
+        for (NSArray *combination in combinations) {
+            count++;
+            NSLog(@"Combination %d",count);
+
+            for (RobotTask *task in combination) {
+                NSLog(@"Possible task: %ldm, %lds, %ldJ" ,(long)task.meters, (long)task.time, ((long)task.powerConsumtion * (long)task.meters));
+
+            }
+        }
+        
     });
 
 }
@@ -262,8 +288,17 @@
     
     
     if (![_robots containsObject:message.sender]) {
-        [_robots addObject:message.sender];
+        // Create a new robot instance (Peer).
+        Robot *peer = [[Robot alloc] initWithName:message.sender maxSpeed:0 powerConsumtionPerSec:0 globalTasks:_myRobot.globalTasks];
+        [peer setLocalContributioPossibleCombinations:message.lcaBody];
+        
+        // Add it to my list.
+        [_robots addObject:peer];
+        
+        // Change the the state.
         _controlLoopState = ControlLoopStateContributionReceived;
+        
+        // Invoke the delegate.
         [_delegate didReceiveContributionAnalysisMessageEvent:message];
     }
     
