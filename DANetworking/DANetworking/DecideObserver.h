@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
 
 @protocol DecideObserverDelegate <NSObject>
 
+- (void)didChangeDecideStatus:(NSString * __nonnull)status;
 - (void)didReceiveMessage:(DAMessage * __nonnull)message;
 - (void)didReceiveJoinEvent:(DAMessage * __nonnull)message;
 - (void)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message;
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
 @interface DecideObserver : NSObject
 
 @property (nonatomic, strong, nullable, readonly) Robot *myRobot;
-@property (nonatomic, strong, nullable, readonly) NSMutableArray *robots;
+@property (nonatomic, strong, nullable, readonly) NSMutableArray *components;
 @property (nonatomic, assign, readonly) ControlLoopState controlLoopState;
 @property (nonatomic, assign, readonly, getter = isControlLoopRunning) BOOL controlLoopRunning;
 @property (nonatomic, weak, nonnull) id<DecideObserverDelegate> delegate;

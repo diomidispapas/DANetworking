@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  This protocol must be implemented by the user
+ */
 @protocol DecideDelegate <NSObject>
 
 @required

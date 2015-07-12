@@ -8,9 +8,11 @@
 
 @import Foundation;
 
+#import "DecideComponent.h"
+
 @class RobotTask;
 
-@interface Robot : NSObject
+@interface Robot : DecideComponent
 
 @property (nonatomic, strong, nonnull, readonly) NSString *name;
 @property (nonatomic, strong, nonnull, readonly) NSMutableArray *globalTasks;

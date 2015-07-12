@@ -21,7 +21,7 @@
 
 #pragma mark - IBOutlets
 
-@property (weak, nonatomic, nonnull) IBOutlet UILabel *subscribersLabel;
+@property (weak, nonatomic) IBOutlet UILabel *decideStatusLabel;
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *subscribersNumberLabel;
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *activityLabel;
 
@@ -132,6 +132,12 @@
 
 
 #pragma mark - DecideObserverDelegate
+
+- (void)didChangeDecideStatus:(NSString *)status {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.decideStatusLabel.text = status;
+    });
+}
 
 - (void)didReceiveMessage:(DAMessage * __nonnull)message {
     NSString *labelText = [NSString stringWithFormat:@"Message received from: %@ with body: %@",message.sender , message.body];

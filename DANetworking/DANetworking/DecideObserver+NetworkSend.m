@@ -19,12 +19,12 @@
 #pragma mark - Networking
 
 - (void)sendDummyMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"DummyMessage" sender:self.myRobot.name messageType:MessageTypeUnknown body:@"Hello guys"];
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"Dummy_Message" sender:self.myRobot.name messageType:MessageTypeUnknown body:@"Hello guys"];
     [self sendMessageToPeers:message];
 }
 
 - (void)sendCLAMessageToPeersWithBody:(NSArray *)localCapabilityAnalysisArray {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"CLAMessage" sender:self.myRobot.name messageType:MessageTypeContributionAnalysisMessage body:@"NULL"];
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"LCA_Message" sender:self.myRobot.name messageType:MessageTypeContributionAnalysisMessage body:@"NULL"];
     
     message.lcaBody = localCapabilityAnalysisArray;
     

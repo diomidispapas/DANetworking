@@ -9,6 +9,8 @@
 #import "Robot.h"
 #import "RobotTask.h"
 
+#import "DecideComponent.h"
+
 @interface Robot ()
 
 @property (nonatomic, strong, nonnull) NSString *name;
@@ -17,7 +19,6 @@
 @property (nonatomic, strong, nullable) RobotTask *localTask;
 @property (nonatomic, assign) double maxSpeed;
 @property (nonatomic, assign) double powerConsumtionPerSec;
-
 
 @end
 

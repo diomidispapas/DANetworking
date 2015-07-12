@@ -15,5 +15,4 @@
 - (void)sendUpdateMessageToPeers;
 - (void)sendChangeMessageToPeers;
 
-
 @end
