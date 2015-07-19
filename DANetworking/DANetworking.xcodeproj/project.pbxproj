@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A3C3FBE1B5BF4C500F93659 /* PrimesComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3C3FBD1B5BF4C500F93659 /* PrimesComponent.m */; };
+		3A3C3FC11B5BFECF00F93659 /* PrimesTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3C3FC01B5BFECF00F93659 /* PrimesTask.m */; };
 		3A41D3001B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A41D2FF1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m */; };
 		3A61A31A1B24AA14003917B0 /* DANetwork+Messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A3191B24AA14003917B0 /* DANetwork+Messages.m */; };
 		3A61A31E1B24B28E003917B0 /* RobotTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A31D1B24B28E003917B0 /* RobotTask.m */; };
 		3A67A4CA1B289FA600C499F0 /* Robot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADDBE4A1B1618090072889B /* Robot.m */; };
-		3A7219261B485A5C0062D506 /* Decide.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7219251B485A5C0062D506 /* Decide.m */; };
 		3A7219291B485A720062D506 /* DecideTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7219281B485A720062D506 /* DecideTask.m */; };
 		3A72192F1B485CB30062D506 /* DecideComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A72192E1B485CB30062D506 /* DecideComponent.m */; };
 		3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D137D1B0243C9000583C1 /* PubNubHelper.swift */; };
@@ -57,6 +58,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A3C3FBB1B5BD4CC00F93659 /* DecideObserverDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecideObserverDelegate.h; sourceTree = "<group>"; };
+		3A3C3FBC1B5BF4C500F93659 /* PrimesComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimesComponent.h; sourceTree = "<group>"; };
+		3A3C3FBD1B5BF4C500F93659 /* PrimesComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimesComponent.m; sourceTree = "<group>"; };
+		3A3C3FBF1B5BFECF00F93659 /* PrimesTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimesTask.h; sourceTree = "<group>"; };
+		3A3C3FC01B5BFECF00F93659 /* PrimesTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimesTask.m; sourceTree = "<group>"; };
 		3A41D2FE1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DecideObserver+NetworkSend.h"; sourceTree = "<group>"; };
 		3A41D2FF1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DecideObserver+NetworkSend.m"; sourceTree = "<group>"; };
 		3A61A3181B24AA14003917B0 /* DANetwork+Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DANetwork+Messages.h"; sourceTree = "<group>"; };
@@ -64,8 +70,6 @@
 		3A61A31C1B24B28E003917B0 /* RobotTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobotTask.h; sourceTree = "<group>"; };
 		3A61A31D1B24B28E003917B0 /* RobotTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RobotTask.m; sourceTree = "<group>"; };
 		3A61A3231B24C0FB003917B0 /* DecideDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecideDelegate.h; sourceTree = "<group>"; };
-		3A7219241B485A5C0062D506 /* Decide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decide.h; sourceTree = "<group>"; };
-		3A7219251B485A5C0062D506 /* Decide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Decide.m; sourceTree = "<group>"; };
 		3A7219271B485A720062D506 /* DecideTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecideTask.h; sourceTree = "<group>"; };
 		3A7219281B485A720062D506 /* DecideTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecideTask.m; sourceTree = "<group>"; };
 		3A72192D1B485CB30062D506 /* DecideComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecideComponent.h; sourceTree = "<group>"; };
@@ -132,12 +136,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A3C3FBA1B5BD35400F93659 /* Application Spesific (Primes) */ = {
+			isa = PBXGroup;
+			children = (
+				3A3C3FBC1B5BF4C500F93659 /* PrimesComponent.h */,
+				3A3C3FBD1B5BF4C500F93659 /* PrimesComponent.m */,
+				3A3C3FBF1B5BFECF00F93659 /* PrimesTask.h */,
+				3A3C3FC01B5BFECF00F93659 /* PrimesTask.m */,
+			);
+			name = "Application Spesific (Primes)";
+			sourceTree = "<group>";
+		};
 		3A402BB11AFB76760098D69D /* Decide */ = {
 			isa = PBXGroup;
 			children = (
+				3A3C3FBA1B5BD35400F93659 /* Application Spesific (Primes) */,
 				3ADDBE481B1617E40072889B /* Application Specific (Example) */,
 				3A402BC11AFB9C810098D69D /* Generic */,
-				3A402BC01AFB9C010098D69D /* Spesific Objects */,
 			);
 			name = Decide;
 			sourceTree = "<group>";
@@ -152,21 +167,17 @@
 			name = "Networking Flow (Matrix)";
 			sourceTree = "<group>";
 		};
-		3A402BC01AFB9C010098D69D /* Spesific Objects */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Spesific Objects";
-			sourceTree = "<group>";
-		};
 		3A402BC11AFB9C810098D69D /* Generic */ = {
 			isa = PBXGroup;
 			children = (
+				3A61A3231B24C0FB003917B0 /* DecideDelegate.h */,
+				3A3C3FBB1B5BD4CC00F93659 /* DecideObserverDelegate.h */,
+				3ADDBE4C1B1630360072889B /* DecideObserver.h */,
+				3ADDBE4D1B1630360072889B /* DecideObserver.m */,
+				3A41D2FE1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.h */,
+				3A41D2FF1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m */,
 				3A72192C1B485CA30062D506 /* Component */,
 				3A72192A1B485A760062D506 /* Task */,
-				3A61A3231B24C0FB003917B0 /* DecideDelegate.h */,
-				3A7219241B485A5C0062D506 /* Decide.h */,
-				3A7219251B485A5C0062D506 /* Decide.m */,
 			);
 			name = Generic;
 			sourceTree = "<group>";
@@ -363,10 +374,6 @@
 				3ADDBE4A1B1618090072889B /* Robot.m */,
 				3A61A31C1B24B28E003917B0 /* RobotTask.h */,
 				3A61A31D1B24B28E003917B0 /* RobotTask.m */,
-				3ADDBE4C1B1630360072889B /* DecideObserver.h */,
-				3ADDBE4D1B1630360072889B /* DecideObserver.m */,
-				3A41D2FE1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.h */,
-				3A41D2FF1B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m */,
 			);
 			name = "Application Specific (Example)";
 			sourceTree = "<group>";
@@ -601,9 +608,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A7219291B485A720062D506 /* DecideTask.m in Sources */,
+				3A3C3FBE1B5BF4C500F93659 /* PrimesComponent.m in Sources */,
 				3A67A4CA1B289FA600C499F0 /* Robot.m in Sources */,
 				3AD9FA5E1AFA9480002DCADC /* MXService.swift in Sources */,
-				3A7219261B485A5C0062D506 /* Decide.m in Sources */,
 				3ADDBE571B163B700072889B /* DAMessage.m in Sources */,
 				3A8D137E1B0243C9000583C1 /* PubNubHelper.swift in Sources */,
 				3AA396DB1AF92385002FAE2D /* GroupViewController.swift in Sources */,
@@ -620,6 +627,7 @@
 				3AA3969E1AF8B7AD002FAE2D /* AppDelegate.swift in Sources */,
 				3ADDBE441B13910D0072889B /* MXService.m in Sources */,
 				3ADDBE4E1B1630360072889B /* DecideObserver.m in Sources */,
+				3A3C3FC11B5BFECF00F93659 /* PrimesTask.m in Sources */,
 				3AA396BF1AF8B8AA002FAE2D /* Service.swift in Sources */,
 				3A41D3001B2E01EE00AF6DA0 /* DecideObserver+NetworkSend.m in Sources */,
 				3ADDBE541B1636FE0072889B /* DANetwork.m in Sources */,

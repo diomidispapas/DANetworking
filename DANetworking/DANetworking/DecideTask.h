@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Diomidis Papas. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-@interface DecideTask : NSObject
+@interface DecideTask : NSObject <NSCoding>
 
 @end

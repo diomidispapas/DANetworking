@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 Diomidis Papas. All rights reserved.
 //
 
+#import "DecideObserverDelegate.h"
+
 @import Foundation;
 
-@class Robot;
+@class DecideComponent;
 @class DAMessage;
 
 
+/// Closed control loop state machine
 typedef NS_ENUM(NSUInteger, ControlLoopState) {
     ControlLoopStateStopped,
     ControlLoopStateLocalCapabilityAnalysis,
@@ -20,39 +23,29 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
     ControlLoopStateContributionReceived,
     ControlLoopStateContributionSelection,
     ControlLoopStateExecution,
+    ControlLoopStateExecuting,
 };
 
 
-@protocol DecideObserverDelegate <NSObject>
 
-- (void)didChangeDecideStatus:(NSString * __nonnull)status;
-- (void)didReceiveMessage:(DAMessage * __nonnull)message;
-- (void)didReceiveJoinEvent:(DAMessage * __nonnull)message;
-- (void)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message;
-- (void)didReceiveStatusUpdatesMessageEvent:(DAMessage * __nonnull)message;
-- (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)message;
-
-@end
-
-/**
- *  The observer observes the system and handles events
- */
+/// The observer observes the system and handles events
 @interface DecideObserver : NSObject
 
-@property (nonatomic, strong, nullable, readonly) Robot *myRobot;
+@property (nonatomic, strong, nullable, readonly) DecideComponent *myComponent;
 @property (nonatomic, strong, nullable, readonly) NSMutableArray *components;
 @property (nonatomic, assign, readonly) ControlLoopState controlLoopState;
 @property (nonatomic, assign, readonly, getter = isControlLoopRunning) BOOL controlLoopRunning;
 @property (nonatomic, weak, nonnull) id<DecideObserverDelegate> delegate;
 
+/// Singleton
 + (nullable instancetype)sharedInstance;
 
 
 #pragma mark - Robots
 
-- (void)setMyRobot:(Robot * __nonnull)robot;
+- (void)setMyComponent:(DecideComponent * __nonnull)component;
 
-- (void)addPeer:(Robot * __nonnull)robot;
+- (void)addPeer:(DecideComponent * __nonnull)component;
 
 
 #pragma mark - Decide Actions

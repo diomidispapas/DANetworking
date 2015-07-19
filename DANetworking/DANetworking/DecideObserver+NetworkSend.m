@@ -19,12 +19,12 @@
 #pragma mark - Networking
 
 - (void)sendDummyMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"Dummy_Message" sender:self.myRobot.name messageType:MessageTypeUnknown body:@"Hello guys"];
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"000" sender:self.myComponent.identifier messageType:MessageTypeUnknown body:@"Testing_Connection"];
     [self sendMessageToPeers:message];
 }
 
 - (void)sendCLAMessageToPeersWithBody:(NSArray *)localCapabilityAnalysisArray {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"LCA_Message" sender:self.myRobot.name messageType:MessageTypeContributionAnalysisMessage body:@"NULL"];
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"LCA_Message" sender:self.myComponent.identifier messageType:MessageTypeContributionAnalysisMessage body:@"NULL"];
     
     message.lcaBody = localCapabilityAnalysisArray;
     
@@ -32,12 +32,12 @@
 }
 
 - (void)sendUpdateMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"UpdateMessage" sender:self.myRobot.name messageType:MessageTypeStatusUpdateMessage body:@"Hello guys"];
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"UpdateMessage" sender:self.myComponent.identifier messageType:MessageTypeStatusUpdateMessage body:@"NULL"];
     [self sendMessageToPeers:message];
 }
 
 - (void)sendChangeMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"ChangeMessage" sender:self.myRobot.name messageType:MessageTypeMajorChangeMessage body:@"Hello guys"];
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"ChangeMessage" sender:self.myComponent.identifier messageType:MessageTypeMajorChangeMessage body:@"NULL"];
     [self sendMessageToPeers:message];
 }
 

@@ -15,7 +15,6 @@
 @property (nonatomic, assign, readonly) NSInteger powerConsumtion;
 
 
-
 #pragma mark - Initialization
 
 - (instancetype)initWithMeters:(NSInteger)meters
