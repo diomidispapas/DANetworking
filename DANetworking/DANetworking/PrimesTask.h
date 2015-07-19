@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "DecideTask.h"
 
+/**
+ *  PrimesTask class represents an actual excecution task. It inherits the DECIDE functionallity from the DecideTask.h class.
+ *  @see @code DecideTask.h @endcode
+ */
 @interface PrimesTask : DecideTask
 
 @property (nonatomic, assign, readonly) int lowerLimit;

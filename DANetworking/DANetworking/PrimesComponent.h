@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "DecideComponent.h"
 
+/**
+ *  PrimesComponent class represents an actual node (Nerwork component). It inherits the DECIDE functionallity from the DecideComponent.h class.
+ *  @see @code DecideComponent.h @endcode
+ */
 @interface PrimesComponent : DecideComponent
 
 @property (nonatomic, assign, readonly) double maxPowerConsumtion;

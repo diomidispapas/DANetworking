@@ -67,7 +67,7 @@
 }
 
 
-#pragma mark - Decide Actions
+#pragma mark - DECIDE Actions
 
 - (void)start {
     
@@ -183,24 +183,6 @@
 #pragma mark - DecideDelegate
 
 - (void)localCapabilityAnalysis {
-    
-    // For each speed until we reach our mac speed calculate the possible combination.
-    /*
-    for (double i = 0; i <= _myComponent.maxSpeed; i++) {
-        
-        // Create a possible task
-        RobotTask *possibleTask = [[RobotTask alloc] initWithMeters:i time:1 powerConsumtion:(_myRobot.powerConsumtionPerSec * i)];
-        
-        // Add the combination to the possible combinations
-        
-        [_myComponent addLocalContributioPossibleCombinationsObject:possibleTask];
-        
-        #ifdef DEBUG
-            NSLog(@"LCA task: %ldm, %lds, %ldJ" ,(long)possibleTask.meters, (long)possibleTask.time, ((long)possibleTask.powerConsumtion * (long)possibleTask.meters));
-        #endif
-    }
-    */
-    
     _myComponent.localContributioPossibleCombinations = [[_delegate localCapabilitiesAnalysisCalculation] mutableCopy];
 }
 
@@ -210,40 +192,32 @@
 
 /// The capability summary is shared with the peer components
 - (void)receiveRemoteNodesCapabilities {
-    
     dispatch_async( dispatch_get_main_queue(), ^{
-    #ifdef DEBUG
+        #ifdef DEBUG
             NSLog(@"DECIDE: Received peer's capabilities");
-    #endif
+        #endif
     });
    
 }
 
 /// This stage is executed infrequently (e.g., when the component joins the system)
 - (void)selectionOfLocalContribution {
-    
     dispatch_async( dispatch_get_main_queue(), ^{
-    #ifdef DEBUG
-        NSLog(@"DECIDE: Selection of local contribution");
-    #endif
+        #ifdef DEBUG
+            NSLog(@"DECIDE: Selection of local contribution");
+        #endif
         [_delegate calculatePossibleCombinations];
-
-        
     });
 }
 
 /// Most of the time, the execution of a local control loop is the only DECIDE stage carried out by a component.
 - (void)executionOfControlLoop {
-    /*
     dispatch_async( dispatch_get_main_queue(), ^{
-    #ifdef DEBUG
-        NSLog(@"DECIDE: Execution of control loop");
-    #endif
+        #ifdef DEBUG
+            NSLog(@"DECIDE: Execution of control loop");
+        #endif
+        [_delegate execution];
     });
-     */
-    //NSLog(@"DECIDE: Execution of control loop");
-
-    [_delegate execution];
 }
 
 /// Infrequently, events such as signifi- cant workload increases or failures of component parts render a DECIDE local control loop unable to achieve its CLA.
@@ -345,8 +319,7 @@
 
 #pragma mark - Helper
 
-- (BOOL)isEqual:(NSArray*)array1 and:(NSArray*)array2
-{
+- (BOOL)isEqual:(NSArray*)array1 and:(NSArray*)array2 {
     NSCountedSet *set1 = [NSCountedSet setWithArray:array1];
     NSCountedSet *set2 = [NSCountedSet setWithArray:array2];
     return [set1 isEqualToSet:set2];

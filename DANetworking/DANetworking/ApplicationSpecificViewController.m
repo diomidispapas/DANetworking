@@ -166,7 +166,7 @@
     PrimesTask *localTask = (PrimesTask *)[DecideObserver sharedInstance].myComponent.localTask;
     
     NSLog(@"Lower limit: %d", localTask.lowerLimit);
-    NSLog(@"Lower limit: %d", localTask.upperLimit);
+    NSLog(@"Upper limit: %d", localTask.upperLimit);
 
     return combinations;
 }
@@ -180,7 +180,6 @@
 
 - (void)didReceiveJoinEvent:(DAMessage * __nonnull)message {
     [self updateActivityLabelWithText:@"Someone joined your channel"];
-
 }
 
 - (DecideComponent *)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message {

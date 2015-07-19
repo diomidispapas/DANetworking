@@ -151,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				3A3C3FBA1B5BD35400F93659 /* Application Spesific (Primes) */,
-				3ADDBE481B1617E40072889B /* Application Specific (Example) */,
+				3ADDBE481B1617E40072889B /* Application Specific (Example Old) */,
 				3A402BC11AFB9C810098D69D /* Generic */,
 			);
 			name = Decide;
@@ -367,7 +367,7 @@
 			name = "Matrix Service (Objective-C)";
 			sourceTree = "<group>";
 		};
-		3ADDBE481B1617E40072889B /* Application Specific (Example) */ = {
+		3ADDBE481B1617E40072889B /* Application Specific (Example Old) */ = {
 			isa = PBXGroup;
 			children = (
 				3ADDBE491B1618090072889B /* Robot.h */,
@@ -375,7 +375,7 @@
 				3A61A31C1B24B28E003917B0 /* RobotTask.h */,
 				3A61A31D1B24B28E003917B0 /* RobotTask.m */,
 			);
-			name = "Application Specific (Example)";
+			name = "Application Specific (Example Old)";
 			sourceTree = "<group>";
 		};
 		3ADDBE4F1B1636A80072889B /* Networking */ = {

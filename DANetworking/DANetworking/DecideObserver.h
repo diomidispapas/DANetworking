@@ -26,9 +26,9 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
     ControlLoopStateExecuting,
 };
 
-
-
-/// The observer observes the system and handles events
+/**
+ *  DECIDE (DEcentralised Control In Distributed sElf-adaptive software) is a rigorous approach to decentralising the control loops of distributed self-adaptive software used in mission-critical applications. DECIDE uses quantitative verification at run time, first to agree individual component contributions to meeting system-level QoS requirements, and then to ensure that components achieve their agreed contributions in the presence of changes and failures. The observer observes the system and handles events
+ */
 @interface DecideObserver : NSObject
 
 @property (nonatomic, strong, nullable, readonly) DecideComponent *myComponent;
@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
 + (nullable instancetype)sharedInstance;
 
 
-#pragma mark - Robots
+#pragma mark - Components
 
 - (void)setMyComponent:(DecideComponent * __nonnull)component;
 
