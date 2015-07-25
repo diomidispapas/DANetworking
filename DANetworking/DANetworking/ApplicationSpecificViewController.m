@@ -108,8 +108,6 @@
 }
 
 
-
-
 #pragma mark - DecideObserverDelegate
 
 - (NSArray * __nonnull)localCapabilitiesAnalysisCalculation {

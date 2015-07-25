@@ -70,6 +70,6 @@
  *
  *  @param message <#message description#>
  */
-- (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)messageNS_DEPRECATED(10_0, 10_6, 2_0, 4_0);
+- (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)message NS_DEPRECATED(10_0, 10_6, 2_0, 4_0);
 
 @end
