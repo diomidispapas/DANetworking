@@ -10,12 +10,12 @@
 #import "DANetworking-Swift.h" //Import Swift files
 #import "DecideObserver.h"
 #import "DAMessage.h"
-
 #import "PrimesComponent.h"
 #import "PrimesTask.h"
 
 
 @interface ApplicationSpecificViewController () <DecideObserverDelegate>
+
 
 #pragma mark - IBOutlets
 
@@ -41,15 +41,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // I delegate the event from the
+    // 1. Setup delegate.
     [DecideObserver sharedInstance].delegate = self;
     
-    // Create environment
+    // 2. Create environment.
     [self createGlobalTask];
     
-    // Networking initial String
+    // 3. Networking initial String.
     NSString *initialActivityLabelMessage = [NSString stringWithFormat:@"%@ is connected to the channel",[DANetwork sharedInstance].userIdentifier];
     
+    // 4. Update acivity label.
     [self updateActivityLabelWithText:initialActivityLabelMessage];
 }
 
@@ -65,7 +66,6 @@
         self.activityLabel.text = text;
     });
 }
-
 
 - (void)createGlobalTask {
     
@@ -95,15 +95,13 @@
 
 - (IBAction)startDecideButtonPressed:(id)sender {
     
-    // Create the robot instance
-    //Robot *myRobot = [[Robot alloc] initWithName:[DANetwork sharedInstance].userIdentifier maxSpeed:[_speedLabel.text doubleValue] powerConsumtionPerSec:[_powerConsumptionLabel.text doubleValue]];
+    // 1.Create the robot instance
+    PrimesComponent *myComponent = [[PrimesComponent alloc] initWithIdentifier:[DANetwork sharedInstance].userIdentifier maxPowerConsumtion:[_speedLabel.text doubleValue] powerConsumtionPerSec:[_powerConsumptionLabel.text doubleValue]];
     
-    PrimesComponent *myComponent = [[PrimesComponent alloc] initWithIdentifier:[DANetwork sharedInstance].userIdentifier maxPowerConsumtion:10 powerConsumtionPerSec:1];
-    
-    // Set this as my robot to the observer
+    // 2.Set this as my robot to the observer
     [[DecideObserver sharedInstance] setMyComponent:myComponent];
     
-    // Start the process
+    // 3.Start the process
     [[DecideObserver sharedInstance] start];
 }
 
@@ -116,13 +114,18 @@
     
     for (double i = 0; i<= myComponent.maxPowerConsumtion; i++) {
         
-        //Create possible task
+        // 1.Create possible task instance
         PrimesTask *possibleTask = [[PrimesTask alloc] initWithLowerLimit:i upperLimit:i+10];
         
-        [myComponent addLocalContributioPossibleCombinationsObject:possibleTask];
-
+        // 2. Calculate the cost of the task
+        possibleTask.cost = (i+10) * myComponent.powerConsumtionPerSec;
+        
+        if (possibleTask.cost <= myComponent.maxPowerConsumtion * 10) {
+            [myComponent addLocalContributioPossibleCombinationsObject:possibleTask];
+        }
+        
         #ifdef DEBUG
-        NSLog(@"LCA task: Lower limit: %ld, Upper limit: %ld" ,(long)possibleTask.lowerLimit, (long)possibleTask.upperLimit);
+            NSLog(@"LCA task: Lower limit: %ld, Upper limit: %ld, Cost: %ld" ,(long)possibleTask.lowerLimit, (long)possibleTask.upperLimit, (long)possibleTask.cost);
         #endif
     }
     
@@ -136,11 +139,18 @@
     
     for (PrimesTask *myCandidateCombinationTask in [DecideObserver sharedInstance].myComponent.localContributioPossibleCombinations) {
         for (DecideComponent *peer in [DecideObserver sharedInstance].components) {
+            
+            #ifdef DEBUG
+                NSLog(@"Processing LCA peer with identifier: %@", peer.identifier);
+            #endif
+
             for (PrimesTask *peersCandidateCombinationTask in peer.localContributioPossibleCombinations) {
                 
-                NSArray *aCombination = [NSArray arrayWithObjects:myCandidateCombinationTask, peersCandidateCombinationTask, nil];
+                if ((peersCandidateCombinationTask.lowerLimit >= myCandidateCombinationTask.upperLimit) || peersCandidateCombinationTask.upperLimit <= myCandidateCombinationTask.lowerLimit) {
+                    NSArray *aCombination = [NSArray arrayWithObjects:myCandidateCombinationTask, peersCandidateCombinationTask, nil];
+                    [combinations addObject:aCombination];
+                }
                 
-                [combinations addObject:aCombination];
             }
         }
     }
@@ -151,15 +161,29 @@
         numberOfCombinations++;
         NSLog(@"Combination No: %d",numberOfCombinations);
         
+        // 1. Calculate total cost.
+        double totalCost = 0;
         for (PrimesTask *task in combination) {
-            NSLog(@"Possible task -> Lower limit: %ld, Upper limit: %ld" ,(long)task.lowerLimit, (long)task.upperLimit);
-            
+            totalCost += task.cost;
+        }
+        
+        // 2. Start logging combination.
+        NSLog(@"Possible task with cost: %f", totalCost);
+        
+        int componentIndex = 1;
+        double tempMinimumCost = 10000000000;
+        for (PrimesTask *task in combination) {
+            NSLog(@"Component: %d -> Lower limit: %ld, Upper limit: %ld, Cost: %f " ,componentIndex ,(long)task.lowerLimit, (long)task.upperLimit, task.cost);
+            componentIndex++;
+            if (totalCost < tempMinimumCost) {
+                [DecideObserver sharedInstance].myComponent.localTask = [[combinations objectAtIndex:0] objectAtIndex:0];
+                tempMinimumCost = totalCost;
+            }
         }
     }
     
     NSLog(@"Number of possible combinations %d", numberOfCombinations);
-
-    [DecideObserver sharedInstance].myComponent.localTask = [[combinations objectAtIndex:0] objectAtIndex:0];
+    NSLog(@"Selecting the best combinations");
     
     PrimesTask *localTask = (PrimesTask *)[DecideObserver sharedInstance].myComponent.localTask;
     
@@ -181,7 +205,6 @@
 }
 
 - (DecideComponent *)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message {
-    
     
     // When receiving a contribution analysis message, then you create an instance with it
     
@@ -220,13 +243,12 @@
     NSLog(@"End of calculation");
 
 }
+
 - (void)didReceiveStatusUpdatesMessageEvent:(DAMessage * __nonnull)message {
     NSLog(@"DAMessage: %@", (NSArray *)message.body);
-
 }
 
 - (void)didReceiveMajorChangeMessageEvent:(DAMessage * __nonnull)message {
-    
 }
 
 @end
