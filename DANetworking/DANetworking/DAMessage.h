@@ -22,7 +22,6 @@ typedef NS_ENUM(NSUInteger, MessageType) {
 @property (nonatomic, copy, nonnull, readonly) NSString *sender;
 @property (nonatomic, assign, readonly) MessageType type;
 @property (nonatomic, copy, nonnull, readonly) NSString* body;
-
 @property (nonatomic, copy, nonnull) NSArray *lcaBody;
 
 
@@ -31,15 +30,8 @@ typedef NS_ENUM(NSUInteger, MessageType) {
                                messageType:(MessageType)type
                                       body:(NSString *  __nonnull)body;
 
-
-
 - (NSString * __nonnull)archivedMessageToData:(DAMessage * __nonnull)message;
 
 - (nullable instancetype)convertDataToMessageObject:(NSString * __nonnull)dataString;
 
-
-// DEPRECATED 14.6
-//- (nullable instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString;
-
-//- (NSString * __nonnull)encodeToNSString;
 @end

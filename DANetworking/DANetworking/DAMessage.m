@@ -54,8 +54,6 @@ static NSString* const kMessageLCABody = @"MessageLCABody";
     
     NSString *base64Encoded = [data base64EncodedStringWithOptions:0];
     
-    //NSLog(@"Encoded: %@", base64Encoded);
-
     return base64Encoded;
     
 }
@@ -77,8 +75,8 @@ static NSString* const kMessageLCABody = @"MessageLCABody";
 
 #pragma mark - <NSCoding>
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
     [aCoder encodeObject:self.messageId forKey:kMessageIdKey];
     [aCoder encodeObject:self.sender forKey:kMessageSender];
     [aCoder encodeInteger:self.type forKey:kMessageType];
@@ -87,8 +85,8 @@ static NSString* const kMessageLCABody = @"MessageLCABody";
     [aCoder encodeObject:self.lcaBody forKey:kMessageLCABody];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
     self = [super init];
     if (self) {
         self.messageId = [aDecoder decodeObjectForKey:kMessageIdKey];
@@ -101,68 +99,4 @@ static NSString* const kMessageLCABody = @"MessageLCABody";
     return self;
 }
 
-// DEPRECATED 14.6
-/*
-- (instancetype)initWithDecodedNSString:(NSString * __nonnull)decodedString {
-    NSString *clearIdentifer = [decodedString stringByReplacingOccurrencesOfString:kMessageIdKey withString:@":"];
-    NSString *clearIdentifer2 = [clearIdentifer stringByReplacingOccurrencesOfString:kMessageSender withString:@":"];
-    NSString *clearIdentifer3 = [clearIdentifer2 stringByReplacingOccurrencesOfString:kMessageType  withString:@":"];
-    NSString *clearIdentifer4 = [clearIdentifer3 stringByReplacingOccurrencesOfString:kMessageBody withString:@":"];
-
-    NSArray *tokens = [clearIdentifer4 componentsSeparatedByString:@":"];
-    if ([tokens count] == 5) {
-        self = [super init];
-        if (self) {
-            _messageId = [tokens objectAtIndex:1];
-            _sender = [tokens objectAtIndex:2];
-            _type = [self messageTypeFromNSString:[tokens objectAtIndex:3]];
-            _body = [tokens objectAtIndex:4];
-        }
-    }
-    return self;
-}
-
-
-#pragma mark - Encoder
-
-- (NSString *)encodeToNSString {
-        NSString *encodedString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
-                                          kMessageIdKey,
-                                          _messageId,
-                                          kMessageSender,
-                                          _sender,
-                                          kMessageType,
-                                          [self stringWithMessageEnum:_type],
-                                          kMessageBody,
-                                          _body];
-                                        
-                                         return encodedString;
-}
-
-
-#pragma mark - MessageTypeEnum Helper
-
-- (NSString *)stringWithMessageEnum:(MessageType)message {
-    NSArray *array = @[
-                     @"MessageTypeUnknown",
-                     @"MessageTypeJoiningMessage",
-                     @"MessageTypeContributionAnalysisMessage",
-                     @"MessageTypeStatusUpdateMessage",
-                     @"MessageTypeMajorChangeMessage",
-                     ];
-    return (NSString *)[array objectAtIndex:message];
-}
-
-- (MessageType)messageTypeFromNSString:(NSString *)messageTypeInStringFormat {
-    NSArray *array = @[
-                       @"MessageTypeUnknown",
-                       @"MessageTypeJoiningMessage",
-                       @"MessageTypeContributionAnalysisMessage",
-                       @"MessageTypeStatusUpdateMessage",
-                       @"MessageTypeMajorChangeMessage",
-                       ];
-    
-    return ([array indexOfObject:messageTypeInStringFormat]);
-}
-*/
 @end

@@ -22,6 +22,7 @@
 @property (nonatomic, strong, nullable) DecideComponent *myComponent;
 @property (nonatomic, strong, nullable) NSMutableArray *components;
 @property (nonatomic, assign) ControlLoopState controlLoopState;
+@property (nonatomic, assign) NSInteger position;
 
 @property (nonatomic, assign, getter = isControlLoopRunning) BOOL controlLoopRunning;
 @property (nonatomic, assign, getter = islocalCapabilityAnalysisReady) BOOL localCapabilityAnalysisReady;
@@ -50,10 +51,19 @@
         _controlLoopRunning = ControlLoopStateStopped;
         
         [DANetwork sharedInstance].delegate = self;
+        
+        _position = 1;
     }
     return self;
 }
 
+- (void)reset {
+    _components = [NSMutableArray array];
+    _controlLoopRunning = NO;
+    _localCapabilityAnalysisReady = NO;
+    _controlLoopRunning = NO;
+
+}
 
 #pragma mark - Public
 #pragma mark - Components
@@ -80,6 +90,8 @@
         // Start the closed control loop on a different thread
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
+            _controlLoopState = ControlLoopStateStopped;
+            
             [self closedControlLoop];
 
         });
@@ -94,14 +106,12 @@
 
         switch (_controlLoopState) {
             case ControlLoopStateStopped: {
-                // [_delegate didChangeDecideStatus:@"Stopped"];
-
+                
                 _controlLoopState = ControlLoopStateLocalCapabilityAnalysis;
                 
                 break;
             }
             case ControlLoopStateLocalCapabilityAnalysis: {
-                // [_delegate didChangeDecideStatus:@"Local Capability Analysis"];
 
                 _localCapabilityAnalysisReady = NO;
                 
@@ -119,12 +129,10 @@
                 break;
             }
             case ControlLoopStateWaitingForPeers: {
-                // [_delegate didChangeDecideStatus:@"Waiting for peers"];
                 break;
             }
             //DEPRECATED
             case ControlLoopStatePeerJoined: {
-                // [_delegate didChangeDecideStatus:@"Someone joined"];
 
                 // Whenever someone joins the room send my capability analysis
                 [self sendLocalCapabilityAnalysisToPeers];
@@ -139,8 +147,6 @@
                 break;
             }
             case ControlLoopStateContributionReceived: {
-                // [_delegate didChangeDecideStatus:@"Received Local Capability Analysis"];
-                
                 
                 if (self.localCapabilityAnalysisReady) {
                     
@@ -157,14 +163,12 @@
                 break;
             }
             case ControlLoopStateContributionSelection: {
-                // [_delegate didChangeDecideStatus:@"Contribution Selection"];
 
                 [self selectionOfLocalContribution];
                 _controlLoopState = ControlLoopStateExecution;
                 break;
             }
             case ControlLoopStateExecution: {
-                //[_delegate didChangeDecideStatus:@"Excecution"];
 
                 [self executionOfControlLoop];
                 
@@ -172,7 +176,6 @@
                 break;
             }
             case ControlLoopStateExecuting: {
-                //[_delegate didChangeDecideStatus:@"Excecuting"];
                 break;
             }
         }
@@ -182,19 +185,32 @@
 
 #pragma mark - DecideDelegate
 
+/// Local capability analysis function that invokes the delegate for the capability calculation
 - (void)localCapabilityAnalysis {
+    // 1. Invoke local capability analysis delegate function
     _myComponent.localContributioPossibleCombinations = [[_delegate localCapabilitiesAnalysisCalculation] mutableCopy];
+    
+    // 2. Status update
+    [_delegate didChangeDecideStatus:@"Calculating Local Capability Analysis"];
 }
 
+/// Helper function that send the local capability summary to peers
 - (void)sendLocalCapabilityAnalysisToPeers {
-    [self sendCLAMessageToPeersWithBody:_myComponent.localContributioPossibleCombinations];
+    
+    // 1. Send to peers the capability summary
+    [self sendLocalCapabilitySummaryToPeersWithBody:_myComponent.localContributioPossibleCombinations];
+    
+    // 2. Status update
+    [_delegate didChangeDecideStatus:@"Send Local Capability Analysis"];
 }
 
 /// The capability summary is shared with the peer components
 - (void)receiveRemoteNodesCapabilities {
+    
+    [_delegate didChangeDecideStatus:@"Received peer's capability summary"];
+
     dispatch_async( dispatch_get_main_queue(), ^{
         #ifdef DEBUG
-            NSLog(@"DECIDE: Received peer's capabilities");
         #endif
     });
    
@@ -202,20 +218,28 @@
 
 /// This stage is executed infrequently (e.g., when the component joins the system)
 - (void)selectionOfLocalContribution {
+    
     dispatch_async( dispatch_get_main_queue(), ^{
         #ifdef DEBUG
             NSLog(@"DECIDE: Selection of local contribution");
         #endif
+        
+        [_delegate didChangeDecideStatus:@"Selection of local contribution"];
+
         [_delegate calculatePossibleCombinations];
     });
 }
 
 /// Most of the time, the execution of a local control loop is the only DECIDE stage carried out by a component.
 - (void)executionOfControlLoop {
+    
     dispatch_async( dispatch_get_main_queue(), ^{
         #ifdef DEBUG
             NSLog(@"DECIDE: Execution of control loop");
         #endif
+        
+        [_delegate didChangeDecideStatus:@"Execution of control loop"];
+
         [_delegate execution];
     });
 }
@@ -251,7 +275,7 @@
 
 - (void)didReceiveContributionAnalysisMessageEvent:(DAMessage * __nonnull)message {
     #ifdef DEBUG
-        NSLog(@"LCA Received from other node");
+        NSLog(@"Local capability summary recieved from other node");
     #endif
     
     // Check if I have already received a capability analysis from this node
@@ -270,19 +294,24 @@
         }
     }
     
-    
     if (![_components containsObject:message.sender]) {
         
-        // Invoke the delegate.
+        // 1.
+        /**
+         *  Invoke the delegate. The delegate will return an instance of the subclassed @code DecideComponent @endcode object.
+         */
         DecideComponent *component = [_delegate didReceiveContributionAnalysisMessageEvent:message];
 
-        // Create a new robot instance (Peer).
-        //Robot *peer = [[Robot alloc] initWithName:message.sender maxSpeed:0 powerConsumtionPerSec:0 globalTasks:_myRobot.globalTasks];
-       
-        [component setLocalContributioPossibleCombinations:message.lcaBody];
+        // 2.
+        /**
+         *  Store the local capability summary of the peer into his instance
+         */
+        [component setLocalContributioPossibleCombinations:[message.lcaBody mutableCopy]];
         
-        
-        // In case that I already have LCA from the same component
+        // 3.
+        /**
+         *  In case that I already have LCA from the same component
+         */
         NSMutableArray *discardedItems = [NSMutableArray array];
         for (DecideComponent *alreadyKnownComponent in _components) {
             if ([alreadyKnownComponent.identifier isEqualToString:component.identifier]) {
@@ -291,10 +320,16 @@
         }
         [_components removeObjectsInArray:discardedItems];
 
-        // Add it to my list.
+        // 4.
+        /**
+         *  Add it to my list.
+         */
         [_components addObject:component];
         
-        // Change the the state.
+        // 5.
+        /**
+         *  Change the the state.
+         */
         _controlLoopState = ControlLoopStateContributionReceived;
         
     }

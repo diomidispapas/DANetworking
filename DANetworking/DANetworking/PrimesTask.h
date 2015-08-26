@@ -17,8 +17,9 @@
 
 @property (nonatomic, assign, readonly) int lowerLimit;
 @property (nonatomic, assign, readonly) int upperLimit;
-@property (nonatomic, assign) double cost;
+@property (nonatomic, assign, readonly) double cost;
 
 - (instancetype)initWithLowerLimit:(int)lowerLimit
-                        upperLimit:(int)upperLimit;
+                        upperLimit:(int)upperLimit
+                              cost:(double)cost;
 @end

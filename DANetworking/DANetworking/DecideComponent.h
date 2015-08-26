@@ -13,17 +13,17 @@
 @interface DecideComponent : NSObject
 
 @property (nonatomic, strong, nonnull, readonly) NSString *identifier;
-@property (nonatomic, strong, nonnull, readonly) NSMutableArray *globalTasks;
 @property (nonatomic, strong, nonnull, readonly) NSMutableArray *localContributioPossibleCombinations;
-@property (nonatomic, strong, nullable, readonly) DecideTask *localTask;
+@property (nonatomic, strong, nullable, readonly) id localTask;
+@property (nonatomic, strong, nullable, readonly) DecideTask *globalTask;
 
 - (nullable instancetype)initWithIdentifier:(NSString * __nonnull)identifier;
 
 #pragma mark - Setters
 
-- (void)addGlobalTask:(DecideTask * __nonnull)task;
+- (void)setGlobalTask:(DecideTask * __nonnull)task;
 
-- (void)setLocalTask:(DecideTask * __nonnull)task;
+- (void)setLocalTask:(id __nonnull)task;
 
 - (void)addLocalContributioPossibleCombinationsObject:(DecideTask * __nonnull)task;
 

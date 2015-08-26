@@ -19,18 +19,23 @@
 
 #pragma mark - Networking
 
-- (void)sendDummyMessageToPeers {
-    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"000" sender:self.myComponent.identifier messageType:MessageTypeUnknown body:@"Testing_Connection"];
-    [self sendMessageToPeers:message];
-}
-
-- (void)sendCLAMessageToPeersWithBody:(NSArray *)localCapabilityAnalysisArray {
+- (void)sendLocalCapabilitySummaryToPeersWithBody:(NSArray *)localCapabilityAnalysisArray {
     DAMessage *message = [[DAMessage alloc] initWithMessageId:@"LCA_Message" sender:self.myComponent.identifier messageType:MessageTypeContributionAnalysisMessage body:@"NULL"];
     
     message.lcaBody = localCapabilityAnalysisArray;
     
     [self sendMessageToPeers:message];
 }
+
+
+#pragma mark - Deprecated functions
+
+- (void)sendDummyMessageToPeers {
+    DAMessage *message = [[DAMessage alloc] initWithMessageId:@"000" sender:self.myComponent.identifier messageType:MessageTypeUnknown body:@"Testing_Connection"];
+    [self sendMessageToPeers:message];
+}
+
+
 
 - (void)sendUpdateMessageToPeers {
     DAMessage *message = [[DAMessage alloc] initWithMessageId:@"UpdateMessage" sender:self.myComponent.identifier messageType:MessageTypeStatusUpdateMessage body:@"NULL"];

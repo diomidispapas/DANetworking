@@ -10,8 +10,9 @@
 
 @interface DecideObserver (NetworkSend)
 
+- (void)sendLocalCapabilitySummaryToPeersWithBody:(NSArray *)localCapabilityAnalysisArray;
+
 - (void)sendDummyMessageToPeers NS_DEPRECATED(10_0, 10_6, 2_0, 4_0);
-- (void)sendCLAMessageToPeersWithBody:(NSArray *)localCapabilityAnalysisArray;
 - (void)sendUpdateMessageToPeers NS_DEPRECATED(10_0, 10_6, 2_0, 4_0);
 - (void)sendChangeMessageToPeers NS_DEPRECATED(10_0, 10_6, 2_0, 4_0);
 

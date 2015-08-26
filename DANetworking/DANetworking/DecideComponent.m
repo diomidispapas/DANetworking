@@ -12,9 +12,9 @@
 @interface DecideComponent ()
 
 @property (nonatomic, strong, nonnull) NSString *identifier;
-@property (nonatomic, strong, nonnull) NSMutableArray *globalTasks;
 @property (nonatomic, strong, nonnull) NSMutableArray *localContributioPossibleCombinations;
-@property (nonatomic, strong, nullable) DecideTask *localTask;
+@property (nonatomic, strong, nullable) id localTask;
+@property (nonatomic, strong, nullable) DecideTask *globalTask;
 
 @end
 
@@ -30,7 +30,6 @@
         _identifier = identifier;
         
         // Array intialization
-        _globalTasks = [NSMutableArray array];
         _localContributioPossibleCombinations = [NSMutableArray array];
     }
     return self = [super init];
@@ -39,11 +38,11 @@
 
 #pragma mark - Setters
 
-- (void)addGlobalTask:(DecideTask *)task {
-    [_globalTasks addObject:task];
+- (void)setGlobalTask:(DecideTask *)task {
+    _globalTask = task;
 }
 
-- (void)setLocalTask:(DecideTask *)task {
+- (void)setLocalTask:(id )task {
     _localTask = task;
 }
 

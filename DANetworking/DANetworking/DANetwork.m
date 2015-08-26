@@ -73,6 +73,8 @@
                         }
                     }];
                     */
+                    
+                    
                     completion(YES, nil);
 
                     
@@ -97,7 +99,6 @@
     
     switch (_serviceType) {
         case ServiceTypePubNubService: {
-            //NSString *encodedMessage = [message encodeToNSString];
            
             NSString *encodedMessage = [message archivedMessageToData:message];
             

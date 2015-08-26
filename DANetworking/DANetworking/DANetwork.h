@@ -29,7 +29,6 @@ typedef NS_ENUM(NSUInteger, ServiceType) {
 
 @property (nonatomic, strong, nullable, readonly) NSMutableArray *participants;
 
-
 + (nullable instancetype)sharedInstance;
 
 - (void)subscribeUser:(NSString * __nonnull)userIdentifier
