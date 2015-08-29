@@ -22,7 +22,6 @@
 @property (nonatomic, strong, nullable) DecideComponent *myComponent;
 @property (nonatomic, strong, nullable) NSMutableArray *components;
 @property (nonatomic, assign) ControlLoopState controlLoopState;
-@property (nonatomic, assign) NSInteger position;
 
 @property (nonatomic, assign, getter = isControlLoopRunning) BOOL controlLoopRunning;
 @property (nonatomic, assign, getter = islocalCapabilityAnalysisReady) BOOL localCapabilityAnalysisReady;
@@ -49,16 +48,16 @@
         _components = [NSMutableArray array];
         _controlLoopRunning = NO;
         _controlLoopRunning = ControlLoopStateStopped;
+        _myComponent.localContributioPossibleCombinations = [NSMutableArray array];
         
         [DANetwork sharedInstance].delegate = self;
         
-        _position = 1;
     }
     return self;
 }
 
 - (void)reset {
-    _components = [NSMutableArray array];
+    //_components = [NSMutableArray array];
     _controlLoopRunning = NO;
     _localCapabilityAnalysisReady = NO;
     _controlLoopRunning = NO;
@@ -283,11 +282,25 @@
         for (DecideComponent *component in _components) {
             if ([component.identifier isEqualToString:message.sender]) {
                 
+                for (DecideTask *task in message.lcaBody) {
+                    if ([[component.localContributioPossibleCombinations mutableCopy] containsObject: task]) {
+                        // Do something
+                        return;
+                    }
+                }
+                
                 // If have the same values
-                if ([self isEqual:message.lcaBody and:component.localContributioPossibleCombinations]) {
+                if ([self isEqual:message.lcaBody and:[component.localContributioPossibleCombinations mutableCopy]]) {
                     
                     return;
                 } else {
+                    
+                    // Update peer's capability summary
+                    component.localContributioPossibleCombinations = [message.lcaBody mutableCopy];
+                    
+                    // Revaluate
+                    _controlLoopState = ControlLoopStateContributionReceived;
+
                     return;
                 }
             }
@@ -358,6 +371,25 @@
     NSCountedSet *set1 = [NSCountedSet setWithArray:array1];
     NSCountedSet *set2 = [NSCountedSet setWithArray:array2];
     return [set1 isEqualToSet:set2];
+}
+
++ (BOOL)arraysContainSameObjects:(NSArray *)array1 andOtherArray:(NSArray *)array2 {
+    // quit if array count is different
+    if ([array1 count] != [array2 count]) return NO;
+    
+    BOOL bothArraysContainTheSameObjects = YES;
+    
+    for (id objectInArray1 in array1) {
+        
+        if (![array2 containsObject:objectInArray1])
+        {
+            bothArraysContainTheSameObjects = NO;
+            break;
+        }
+        
+    }
+    
+    return bothArraysContainTheSameObjects;
 }
 
 @end

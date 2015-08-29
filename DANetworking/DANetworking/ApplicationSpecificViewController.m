@@ -23,16 +23,21 @@
 #pragma mark - IBOutlets
 
 @property (weak, nonatomic) IBOutlet UILabel *decideStatusLabel;
+
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *subscribersNumberLabel;
+
 @property (weak, nonatomic, nonnull) IBOutlet UILabel *activityLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *sendDummyMessageButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *startDecideButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *speedLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *powerConsumptionLabel;
 
 @property (weak, nonatomic) IBOutlet UISlider *speedSlider;
+
 @property (weak, nonatomic) IBOutlet UISlider *powerConsumtionSlider;
 
 @property (weak, nonatomic) IBOutlet UILabel *numberOfLocalCapabilitySummariesLabel;
@@ -44,14 +49,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectedContributionDetailsLabel;
 
 
-
+#pragma mark - Properties
 
 @property (strong, nonatomic) StopWatch *watch;
+
 @property (strong, nonatomic) PrimesTask *globalTask;
+
 @property (strong, nonatomic) PrimesTask *localTask;
+
 @property (strong, nonatomic) NSArray *selectedCombination;
 
 @end
+
 
 @implementation ApplicationSpecificViewController
 
@@ -63,8 +72,8 @@
     // 1. Setup delegate.
     [DecideObserver sharedInstance].delegate = self;
     
-    // 2. Create environment.
-    [self createGlobalTask];
+    // 2. Setup environment.
+    [self setupDecide];
     
     // 3. Networking initial String.
     NSString *initialActivityLabelMessage = [NSString stringWithFormat:@"%@ is connected to the channel",[DANetwork sharedInstance].userIdentifier];
@@ -86,18 +95,20 @@
     });
 }
 
-- (void)createGlobalTask {
+- (void)setupDecide {
     
-    // Create a global task that will be divided into the components.
-
-#warning Ser range
+    // 1. Create a global task that will be divided into the components.
     
-    _globalTask = [[PrimesTask alloc] initWithLowerLimit:0 upperLimit:10 cost:1000];
+    _globalTask = [[PrimesTask alloc] initWithLowerLimit:0 upperLimit:30 cost:400];
     [[[DecideObserver sharedInstance] myComponent] setGlobalTask:_globalTask];
     
-    #ifdef DEBUG
-    #endif
+    // 2. Setup position
     
+    [DecideObserver sharedInstance].position = 2;
+
+    #ifdef DEBUG
+        NSLog(@"Global Task created and network position set");
+    #endif
 }
 
 
@@ -124,17 +135,22 @@
 }
 
 - (IBAction)disconnectDecideButtonPressed:(id)sender {
-    
     [[DecideObserver sharedInstance] reset];
 }
 
 - (IBAction)updateDecideButtonPressed:(id)sender {
     
+    
+    _selectedCombination = [NSArray array];
+    _localTask = nil;
+    
     [[DecideObserver sharedInstance] reset];
-    [[DecideObserver sharedInstance] start];
+    
+    [self setupDecide];
+
+    //[[DecideObserver sharedInstance] start];
 
 }
-
 
 
 #pragma mark - DecideObserverDelegate
@@ -147,7 +163,7 @@
     // 2. Initialize a counter for debugging puproses
     int localCapabilityAnalysisCounter = 0;
     
-    // 2. Local capability summary calculation.
+    // 3. Local capability summary calculation.
     // For each possible range calculate.
     for (int lower = _globalTask.lowerLimit; lower < _globalTask.upperLimit; lower++) {
         
@@ -183,17 +199,19 @@
 }
 
 - (NSMutableArray *)calculatePossibleCombinations {
-
-    /**
-     The stop watch is for calculation performance.
-     At this point we start it.
+    
+    /*!
+     @author Diomidis  Papas, 15-08-26 09:08:30
      
-     :returns: <#return value description#>
+     @brief  The stop watch is for calculation performance. At this point we start it.
+
+     @since <#version number#>
      */
+
     _watch = [[StopWatch alloc] init];
     [_watch start];
 
-    
+ 
     // 1. Create a possible combinations array in order to store the results.
     NSMutableArray *combinations = [NSMutableArray array];
     
@@ -234,6 +252,7 @@
      *  Variable that captures the minimum cost. In this variable we assign the lowest cost
      */
     double minimumCostOfTask = 10000000000;
+    double minimumCostOfFirstComponent = 10000000000;
     
     /**
      *  Counter variable for indicating the processing task
@@ -268,11 +287,20 @@
                
                 [DecideObserver sharedInstance].myComponent.localTask = [combination objectAtIndex:0];
                
-                _localTask = [combination objectAtIndex:([DecideObserver sharedInstance].position - 1)];
-                
-                minimumCostOfTask = totalCostOfProcessingTask;
-                
-                _selectedCombination = combination;
+                PrimesTask *possibleMinimumCostTask = [combination objectAtIndex:([DecideObserver sharedInstance].position - 1)];
+
+                // 3. Conflict between two tasks with the same minimum cost. Select the task with the minimum cost on the first component
+                if (possibleMinimumCostTask.cost < minimumCostOfFirstComponent) {
+                    
+                    _localTask = [combination objectAtIndex:([DecideObserver sharedInstance].position - 1)];
+                    
+                    minimumCostOfTask = totalCostOfProcessingTask;
+                    
+                    minimumCostOfFirstComponent = possibleMinimumCostTask.cost;
+                    
+                    _selectedCombination = combination;
+
+                }
             }
             
             componentIndex++;

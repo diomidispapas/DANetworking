@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, ControlLoopState) {
 @property (nonatomic, strong, nullable, readonly) NSMutableArray *components;
 @property (nonatomic, assign, readonly) ControlLoopState controlLoopState;
 @property (nonatomic, assign, readonly, getter = isControlLoopRunning) BOOL controlLoopRunning;
-@property (nonatomic, assign, readonly) NSInteger position;
+@property (nonatomic, assign) NSInteger position;
 @property (nonatomic, weak, nonnull) id<DecideObserverDelegate> delegate;
 
 /// Singleton
